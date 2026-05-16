@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-  <meta name="description" content="Sportfischerverein Angelbachtal e.V. – Angeln mit Geschichte und Herz am Erlensee seit 1972.">
+  <meta name="description" content="Sportfischerverein Angelbachtal e.V. – Angeln mit Geschichte und Herz am Erlensee seit 1981.">
   <title>Sportfischerverein Angelbachtal e.V.</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -468,7 +468,7 @@
 </div>
     <div class="logo-text">
       <strong>SFV Angelbachtal</strong>
-      <span>e.V. · seit 1972</span>
+      <span>e.V. · seit 1981</span>
     </div>
   </a>
   <ul class="nav-center" role="list">
@@ -496,7 +496,7 @@
 <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-overlay" aria-hidden="true"></div>
   <div class="hero-content">
-    <span class="hero-tag">Erlensee Angelbachtal · seit 1972</span>
+    <span class="hero-tag">Erlensee Angelbachtal · seit 1981</span>
     <h1 class="hero-h1">Sportfischerverein<br><span class="ac">Angelbachtal</span> e.V.</h1>
     <p class="hero-sub">„Mehr als nur ein Hobby – Deine Heimat am Wasser."</p>
     <div class="hero-btns">
@@ -572,7 +572,7 @@
       <p class="section-label" style="text-align:center">Über uns</p>
       <h2 class="sh" style="text-align:center">Angeln mit <span class="ac">Geschichte und Herz</span></h2>
       <div class="sh-line" style="margin:14px auto 28px"></div>
-      <p style="font-size:15px;line-height:1.9;color:var(--mid);margin-bottom:16px">Der Sportfischerverein Angelbachtal e.V. zählt zu den ersten gegründeten Vereinen im Ort – aktiv seit 1972. Seitdem stehen wir für gemeinschaftliches Angeln, gelebte Vereinsarbeit und ein starkes Miteinander.</p>
+      <p style="font-size:15px;line-height:1.9;color:var(--mid);margin-bottom:16px">Der Sportfischerverein Angelbachtal e.V. zählt zu den ersten gegründeten Vereinen im Ort – aktiv seit 1981. Seitdem stehen wir für gemeinschaftliches Angeln, gelebte Vereinsarbeit und ein starkes Miteinander.</p>
     </div>
 
     <!-- Gewässer -->
@@ -640,7 +640,7 @@
       <div class="erlensee-stats">
         <div class="erlensee-stat"><div class="es-num">4.500</div><div class="es-label">m² Fläche</div></div>
         <div class="erlensee-stat"><div class="es-num">~3</div><div class="es-label">Meter Tiefe</div></div>
-        <div class="erlensee-stat"><div class="es-num">1972</div><div class="es-label">Gründungsjahr</div></div>
+        <div class="erlensee-stat"><div class="es-num">1981</div><div class="es-label">Gründungsjahr</div></div>
       </div>
       <p style="font-size:14.5px;line-height:1.85;color:var(--mid);margin-bottom:16px">Der Erlensee ist mit einer Größe von etwa 4500 m² und einer Tiefe ca. 3 Metern das Hauptgewässer unseres Vereins. In seiner ruhigen, idyllischen Umgebung finden sowohl Angler als auch Erholungssuchende den idealen Ort zum Entspannen.</p>
       <p style="font-size:14.5px;line-height:1.85;color:var(--mid);margin-bottom:16px">Der See beherbergt eine Vielzahl an Fischarten, darunter Karpfen, Forellen, Schleien und Aal. Wer am Ufer sitzt, kann nicht nur beim Angeln entspannen, sondern auch die Vielfalt der Natur genießen – sei es durch das Beobachten von Vögeln, das Quaken der Frösche oder das Rascheln von Kleintieren rund um den See.</p>
@@ -1002,7 +1002,7 @@
           <div class="logo-icon" style="background:transparent;padding:0"><img src="SFV_Logo.png" alt="SFV Angelbachtal Logo" style="width:36px;height:36px;object-fit:contain;border-radius:6px"></div>
           <div class="logo-text">
   <strong style="color:#94a3b8">SFV Angelbachtal</strong>
-  <span>e.V. · seit 1972</span>
+  <span>e.V. · seit 1981</span>
 </div>
         </a>
         <p>Natur, Hobby und Leidenschaft am Erlensee Angelbachtal. Herzlich willkommen in unserer Gemeinschaft!</p>
@@ -1040,7 +1040,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Sportfischerverein Angelbachtal e.V. · Alle Rechte vorbehalten.</span>
-      <span>Erlensee Angelbachtal · seit 1972</span>
+      <span>Erlensee Angelbachtal · seit 1981</span>
     </div>
   </div>
 </footer>
@@ -1119,17 +1119,11 @@ function downloadICS() {
     const startDay = pad(sm[1]), startMon = sm[2], year = sm[3];
 
     let dtstart, dtend;
-    const isVersammlung = /versammlung/i.test(summary);
     if (timeMatch) {
       const h = timeMatch[1], m = timeMatch[2];
       const h2 = pad(parseInt(h)+2);
       dtstart = `${year}${startMon}${startDay}T${h}${m}00`;
       dtend   = `${year}${startMon}${startDay}T${h2}${m}00`;
-      events.push({dtstart, dtend, allDay:false, summary, location});
-    } else if (isVersammlung) {
-      // Versammlungen: 19:00–21:00 Uhr
-      dtstart = `${year}${startMon}${startDay}T190000`;
-      dtend   = `${year}${startMon}${startDay}T210000`;
       events.push({dtstart, dtend, allDay:false, summary, location});
     } else {
       const em = dates.length > 1 ? p(dates[dates.length-1]) : null;
@@ -1144,13 +1138,11 @@ function downloadICS() {
   let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\n'
           + 'PRODID:-//SFV Angelbachtal//Termine//DE\r\n'
           + 'CALSCALE:GREGORIAN\r\n'
-          + 'METHOD:PUBLISH\r\n'
-          + 'X-WR-CALNAME:SFV Angelbachtal\r\n'
+          + 'X-WR-CALNAME:SFV Angelbachtal 2026\r\n'
           + 'X-WR-TIMEZONE:Europe/Berlin\r\n';
 
   events.forEach((e,i) => {
     ics += 'BEGIN:VEVENT\r\n';
-    ics += `DTSTAMP:${new Date().toISOString().replace(/[-:.]/g,'').substring(0,15)}Z\r\n`;
     ics += e.allDay
       ? `DTSTART;VALUE=DATE:${e.dtstart}\r\nDTEND;VALUE=DATE:${e.dtend}\r\n`
       : `DTSTART;TZID=Europe/Berlin:${e.dtstart}\r\nDTEND;TZID=Europe/Berlin:${e.dtend}\r\n`;
@@ -1162,15 +1154,10 @@ function downloadICS() {
 
   ics += 'END:VCALENDAR';
 
-  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
+  a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar;charset=utf-8'}));
   a.download = 'SFVA_Termine_2026.ics';
-  a.style.display = 'none';
-  document.body.appendChild(a);
   a.click();
-  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 2000);
 }
 
 // Web3Forms Hauptseite
