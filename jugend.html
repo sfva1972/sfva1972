@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+  <title>Jugend | Sportfischer-Verein Angelbachtal e.V.</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --blue:#0055e5;--cyan:#00b4d8;--dark:#0f172a;--mid:#334155;
+      --light:#f8fafc;--white:#fff;--border:#e2e8f0;--r:12px;
+      --blue-soft:#eff6ff;--cyan-soft:#ecfeff;
+    }
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{font-family:"Plus Jakarta Sans",sans-serif;background:var(--light);color:var(--dark);line-height:1.65;overflow-x:hidden}
+
+    /* ── SKIP LINK ── */
+    .skip{position:absolute;top:-40px;left:16px;z-index:9999;background:var(--blue);color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;transition:top .2s}
+    .skip:focus{top:16px}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;width:100%;z-index:1000;
+      background:rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);display:flex;justify-content:space-between;
+      align-items:center;padding:0 52px;height:68px;transition:height .3s;
+      -webkit-transform:translateZ(0);transform:translateZ(0)}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-icon{width:56px;height:56px;background:#ffffff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+    .logo-text strong{font-family:"Outfit",sans-serif;font-size:14px;font-weight:800;color:var(--dark);display:block;line-height:1.2;letter-spacing:-.01em}
+    .logo-text span{font-size:10px;color:#64748b;letter-spacing:1px;text-transform:uppercase}
+    .nav-center{display:flex;gap:4px;list-style:none}
+    .nav-center a{color:var(--mid);text-decoration:none;font-size:13px;font-weight:500;padding:7px 16px;border-radius:8px;transition:all .2s}
+    .nav-center a:hover,.nav-center a.active{background:var(--blue-soft);color:var(--blue)}
+    .nav-right{display:flex;gap:10px;align-items:center}
+    .btn-search{background:none;border:none;cursor:pointer;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#64748b;transition:background .2s;font-size:16px}
+    .btn-search:hover{background:var(--border)}
+    .btn-login{background:var(--dark);color:#fff;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;letter-spacing:.5px;text-decoration:none;opacity:.4;cursor:default;pointer-events:none;font-family:"Plus Jakarta Sans",sans-serif}
+    .btn-login-note{font-size:10px;color:#94a3b8;margin-left:-4px}
+
+    /* ── HERO ── */
+    .hero{height:72vh;min-height:520px;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;margin-top:68px}
+    .hero-bg{position:absolute;inset:0}
+    .hero-bg {background-image: url('erlensee1.jpg'); background-size: cover;  background-position: center;}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,30,80,.55) 0%,rgba(0,15,40,.7) 100%)}
+    .hero-content{position:relative;z-index:2;padding:0 24px;max-width:840px}
+    .hero-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#93c5fd;font-weight:600;margin-bottom:18px;display:block}
+    .hero-h1{font-family:"Outfit",sans-serif;font-weight:800;font-size:clamp(2.2rem,5.5vw,4rem);color:#fff;line-height:1.08;letter-spacing:-.02em;margin-bottom:16px}
+    .hero-h1 .ac{color:#67e8f9}
+    .hero-sub{font-size:1.1rem;color:rgba(255,255,255,.7);margin-bottom:38px;font-weight:300}
+    .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:7px;padding:12px 26px;border-radius:10px;font-family:"Plus Jakarta Sans",sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all .22s;letter-spacing:.2px}
+    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(0,85,229,.35)}
+    .btn-primary:hover{background:#0044cc;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,85,229,.4)}
+    .btn-outline-w{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px)}
+    .btn-outline-w:hover{background:rgba(255,255,255,.2)}
+    .btn-outline{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+    .btn-outline:hover{background:var(--blue-soft)}
+    .btn-whatsapp{background:#25d366;color:#fff}
+    .btn-whatsapp:hover{background:#20bb5a;transform:translateY(-2px)}
+
+    /* ── SECTIONS ── */
+    .section{padding:88px 0}
+    .section-alt{padding:88px 0;background:#f1f5f9}
+    .container{max-width:1200px;margin:0 auto;padding:0 52px}
+    .section-label{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:10px}
+    h2.sh{font-family:"Outfit",sans-serif;font-weight:800;font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--dark);letter-spacing:-.025em;line-height:1.1;margin-bottom:10px}
+    h2.sh .ac{color:var(--blue)}
+    .sh-line{width:40px;height:3px;background:linear-gradient(to right,var(--blue),var(--cyan));border-radius:2px;margin:14px 0 28px}
+
+    /* ── PHOTO PLACEHOLDER ── */
+    .photo{width:100%;background:linear-gradient(135deg,#dbeafe,#e0f2fe);border:2px dashed #93c5fd;border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#3b82f6;font-weight:600;text-align:center;padding:32px 20px;gap:8px}
+    .photo-icon{font-size:32px;opacity:.6}
+    .photo-label{font-size:13px;color:#2563eb;font-weight:600}
+    .photo-hint{font-size:11px;color:#64748b;font-weight:400;margin-top:2px}
+    .photo-16-9{aspect-ratio:16/9}
+    .photo-4-3{aspect-ratio:4/3}
+    .photo-1-1{aspect-ratio:1/1}
+    .photo-3-2{aspect-ratio:3/2}
+
+    /* ── CARDS ── */
+    .card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+    .card-hover{transition:box-shadow .25s,transform .25s}
+    .card-hover:hover{box-shadow:0 8px 30px rgba(0,0,0,.1);transform:translateY(-3px)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+
+    /* ── VEREIN ── */
+    .verein-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:72px}
+    .taglines{text-align:center;padding:48px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:56px 0}
+    .tagline-1{font-family:"Outfit",sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;color:var(--dark);letter-spacing:-.02em;margin-bottom:10px}
+    .tagline-2{font-size:1.1rem;color:#64748b;font-weight:300}
+    .vorstand-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:48px}
+    .vorstand-list{list-style:none;display:flex;flex-direction:column;gap:0}
+    .vorstand-item{display:flex;gap:0;padding:12px 0;border-bottom:1px solid var(--border);font-size:14px}
+    .vorstand-item:last-child{border-bottom:none}
+    .vorstand-role{color:#64748b;font-weight:500;width:260px;flex-shrink:0}
+    .vorstand-name{font-weight:700;color:var(--dark)}
+    .gewaesser-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+    .gewaesser-card{border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+    .gc-head{padding:20px 24px;background:var(--blue);color:#fff}
+    .gc-head h3{font-family:"Outfit",sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:4px}
+    .gc-head p{font-size:12px;opacity:.8}
+    .gc-body{padding:24px;background:var(--white)}
+    .gc-body p{font-size:14px;line-height:1.75;color:var(--mid);margin-bottom:12px}
+    .gc-body p:last-child{margin-bottom:0}
+    .highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+    .hl-card{background:var(--blue-soft);border-radius:var(--r);padding:22px;text-align:center;border:1px solid #bfdbfe}
+    .hl-icon{font-size:28px;margin-bottom:10px}
+    .hl-title{font-family:"Outfit",sans-serif;font-size:.95rem;font-weight:700;color:var(--dark);margin-bottom:6px}
+    .hl-desc{font-size:13px;color:var(--mid)}
+    .erlensee-box{background:linear-gradient(135deg,#eff6ff,#ecfeff);border-radius:var(--r);padding:36px 40px;margin-top:48px;border:1px solid #bae6fd}
+    .erlensee-stats{display:flex;gap:40px;margin:20px 0 28px;flex-wrap:wrap}
+    .erlensee-stat{text-align:center}
+    .es-num{font-family:"Outfit",sans-serif;font-size:2rem;font-weight:800;color:var(--blue);line-height:1}
+    .es-label{font-size:12px;color:#64748b;margin-top:3px}
+    .fish-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .fish-chip{background:var(--white);border:1px solid #bfdbfe;border-radius:20px;padding:5px 14px;font-size:13px;color:var(--blue);font-weight:600}
+
+    /* ── NEWS ── */
+    .news-badge{background:var(--blue);color:#fff;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block;margin-bottom:12px;letter-spacing:.3px}
+    .news-badge.green{background:#059669}
+    .news-card h3{font-family:"Outfit",sans-serif;font-size:1.2rem;font-weight:800;color:var(--dark);margin-bottom:12px;letter-spacing:-.01em;line-height:1.25}
+    .news-card p{font-size:14px;line-height:1.75;color:var(--mid)}
+    .news-card p+p{margin-top:10px}
+    .news-card h4{font-family:"Outfit",sans-serif;font-size:.95rem;font-weight:700;color:var(--dark);margin:14px 0 6px}
+    .news-more{text-align:center;margin-top:40px}
+    .news-list{list-style:none;margin-top:8px;padding-left:0}
+    .news-list li{padding:6px 0;padding-left:20px;position:relative;font-size:14px;color:var(--mid)}
+    .news-list li::before{content:"●";position:absolute;left:0;color:var(--blue);font-size:8px;top:9px}
+
+    /* ── MITGLIEDSCHAFT ── */
+    .price-card{border-radius:var(--r);overflow:hidden;border:2px solid var(--border);text-align:center}
+    .pc-head { padding: 12px 20px}
+    .pc-icon { display: none; }
+    .pc-head p { display: none; }
+    .pc-head p{font-size:12px;color:rgba(255,255,255,.75)}
+    .pc-body{padding:28px 24px;background:#fff}
+    .pc-price { font-size: 2rem; }
+    .pc-price.cyan{color:#0891b2}
+    .pc-period{font-size:13px;color:#64748b;margin:6px 0 16px}
+    .pc-then{background:#f8fafc;border-radius:8px;padding:12px;font-size:13px;color:var(--mid);margin-top:12px}
+    .pc-then strong{color:var(--dark)}
+    .grill-box{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:var(--r);padding:36px 40px;margin-top:48px;border:1px solid #fcd34d}
+    .grill-box h3{font-family:"Outfit",sans-serif;font-size:1.5rem;font-weight:800;color:#78350f;margin-bottom:14px}
+    .grill-box p{font-size:14.5px;line-height:1.8;color:#92400e}
+    .cta-box{background:linear-gradient(135deg,var(--dark),#1e293b);border-radius:var(--r);padding:48px 52px;margin-top:48px;text-align:center}
+    .cta-box h3{font-family:"Outfit",sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:10px}
+    .cta-box p{color:rgba(255,255,255,.65);margin-bottom:28px;font-size:15px}
+    .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .contact-info{display:flex;gap:24px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+    .contact-info a{color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;transition:color .2s}
+    .contact-info a:hover{color:#fff}
+
+    /* ── VEREINSLEBEN ── */
+    .vl-card{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);background:#fff}
+    .vl-card-body{padding:22px}
+    .vl-date{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:8px}
+    .vl-card-body h3{font-family:"Outfit",sans-serif;font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:10px}
+    .vl-card-body p{font-size:13.5px;color:var(--mid);line-height:1.7}
+    .vl-card-body h4{font-size:.9rem;font-weight:700;color:var(--dark);margin:10px 0 5px}
+
+    /* ── TERMINKALENDER ── */
+    .termine-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:0 4px 20px rgba(0,0,0,.07);border:1px solid var(--border)}
+    .termine-table{width:100%;border-collapse:collapse;min-width:680px}
+    .termine-table th{background:var(--blue);color:#fff;padding:14px 20px;text-align:left;font-family:"Outfit",sans-serif;font-size:13px;font-weight:700;letter-spacing:.3px}
+    .termine-table td{padding:11px 20px;border-bottom:1px solid #f1f5f9;font-size:13.5px;color:var(--mid)}
+    .termine-table tr:last-child td{border-bottom:none}
+    .termine-table tr:hover td{background:#f8fafc}
+    .month-row td{background:#f1f5f9 !important;font-family:"Outfit",sans-serif;font-weight:800;color:var(--blue);text-transform:uppercase;font-size:11px;letter-spacing:2px;padding:10px 20px}
+    .termine-bold td:nth-child(2){font-weight:700;color:var(--dark)}
+
+    /* ── FOOTER ── */
+    footer{background:var(--dark);color:#fff;padding:60px 0 32px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+    .footer-brand p{font-size:13px;color:#94a3b8;line-height:1.7;max-width:240px;margin-top:14px}
+    .footer-h{font-family:"Outfit",sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#c8a84b;margin-bottom:14px}
+    .footer-links{list-style:none;display:flex;flex-direction:column;gap:9px}
+    .footer-links a{font-size:13px;color:#94a3b8;text-decoration:none;transition:color .2s}
+    .footer-links a:hover{color:#fff}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:22px;display:flex;justify-content:space-between;font-size:12px;color:#475569;flex-wrap:wrap;gap:10px}
+
+    /* ── REVEAL ── */
+    .rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+    .rv.vis{opacity:1;transform:none}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+    /* ── BURGER (Desktop: versteckt) ── */
+    .burger-menu{display:none;flex-direction:column;gap:5px;background:none;border:none;
+      cursor:pointer;padding:8px;flex-shrink:0}
+    .burger-menu span{width:24px;height:2.5px;background:var(--dark);border-radius:2px;
+      display:block;transition:transform .3s,opacity .3s}
+    .burger-menu.active span:nth-child(1){transform:rotate(45deg) translate(5px,5.5px)}
+    .burger-menu.active span:nth-child(2){opacity:0}
+    .burger-menu.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5.5px)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){.container{padding:0 28px}.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
+
+          /* ── KOMPAKT MOBILE ── */
+      /* Einheitliche seitliche Abstände in allen Karten */
+      .card,.tm,.hl-card,.gc-body,.pc-body,.vl-card-body,
+      .station,.erlensee-box,.grill-box,.cta-box,.fs-visual,
+      .news-box .news-inner,.taglines,.imp-box,.cta-band,.fs-grid{
+        padding-left:14px !important;
+        padding-right:14px !important;
+      }
+      /* Abstände zwischen Sektionen */
+      .section,.section-alt{padding:20px 0}
+      /* Karten-Abstände */
+      .grid-2,.grid-3,.grid-auto,.gewaesser-grid,.teamg,.highlights-grid{gap:8px}
+      .stations{gap:8px}
+      /* Karten-Innenabstand */
+      .card{padding:14px}
+      /* Abstände innerhalb Sektionen */
+      .sh-line{margin:8px 0 12px}
+      .section-label{margin-bottom:4px}
+      h2.sh{margin-bottom:6px;font-size:1.5rem}
+      /* Allgemeiner Zeilenabstand */
+      body{line-height:1.5}
+      p{line-height:1.55}
+      /* Footer kompakt */
+      .footer-grid{gap:16px}
+      .footer-links{gap:6px}
+      footer{padding:24px 0 16px}
+      .footer-bottom{padding-top:14px}
+      /* Jugend spezifisch */
+      .fs-grid{grid-template-columns:1fr;gap:16px}
+      .fs-num{font-size:3rem}
+      .fs-title{font-size:1.2rem}
+      .cta-band{padding:20px 14px}
+      .cta-band h2{font-size:1.3rem}
+      .news-box h3{font-size:1rem}
+      .news-inner{padding:16px 14px}
+      .foto-grid{grid-template-columns:1fr 1fr;gap:8px}
+      .grid-contact{grid-template-columns:1fr;gap:20px}
+      .form-row-2{grid-template-columns:1fr}
+      /* Impressum spezifisch */
+      .imp-hero{height:auto;padding:80px 14px 24px;margin-top:64px}
+      .imp-hero h1{font-size:1.6rem}
+      .imp-section{margin-bottom:20px;padding-bottom:16px}
+      .imp-h3{margin:10px 0 4px}
+      .imp-p{font-size:13px;line-height:1.6}
+      .imp-label{margin-bottom:6px}
+    @media(max-width:768px){
+      /* Nav: nur Logo + Burger, kein Login/Suche */
+      nav{padding:0 16px;height:64px}
+      .nav-right{display:none}
+      .burger-menu{display:flex}
+      /* Dropdown: position:fixed damit es beim Scrollen bleibt */
+      .nav-center{
+        display:none;position:fixed;top:64px;left:0;width:100%;
+        background:#fff;flex-direction:column;padding:10px 16px 20px;
+        border-bottom:1px solid var(--border);z-index:999;
+        box-shadow:0 8px 24px rgba(0,0,0,.12)
+      }
+      .nav-center.active{display:flex}
+      .nav-center li{width:100%}
+      .nav-center a{display:block;padding:13px 16px;font-size:15px;border-radius:8px}
+      /* Layout */
+      .verein-hero-grid,.vorstand-grid,.gewaesser-grid,.grid-2,.grid-3{grid-template-columns:1fr}
+      .highlights-grid{grid-template-columns:1fr 1fr}
+      .container{padding:0 6px}
+      .erlensee-box{padding:24px}
+      .cta-box{padding:32px 20px}
+      .footer-grid{grid-template-columns:1fr}
+      .hero{margin-top:64px}
+      .btn-login-note{display:none}
+    }
+
+    @media(max-width:480px){
+      .highlights-grid,.grid-auto{grid-template-columns:1fr}
+      .hero-btns,.cta-btns{flex-direction:column;align-items:center}
+    }
+  
+
+    /* ── JUGEND HERO: helleres Tageslicht ── */
+    .hero-jugend .hero-bg{background-image:url('kinder_angeln.jpg')}
+    .hero-jugend .hero-overlay{background:linear-gradient(to bottom,rgba(0,40,100,.5) 0%,rgba(0,20,55,.72) 100%)}
+
+    /* ── NEWS BOX ── */
+    .news-box{background:#fff;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;margin-top:48px;display:grid;grid-template-columns:4px 1fr}
+    .news-accent{background:var(--blue)}
+    .news-inner{padding:32px 36px}
+    .news-tag2{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:10px}
+    .news-box h3{font-family:"Outfit",sans-serif;font-size:1.4rem;font-weight:800;color:var(--dark);margin-bottom:14px;letter-spacing:-.02em;line-height:1.25}
+    .news-box p{font-size:14px;line-height:1.8;color:var(--mid);margin-bottom:12px}
+    .news-box p:last-child{margin-bottom:0}
+    .news-source{font-size:12px;color:#94a3b8;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+    .news-source a{color:var(--blue);text-decoration:none}
+
+    /* ── CTA BAND ── */
+    .cta-band{background:linear-gradient(135deg,#0044cc,#0891b2);border-radius:var(--r);padding:48px 52px;text-align:center;margin-top:0}
+    .cta-band h2{font-family:"Outfit",sans-serif;font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:10px}
+    .cta-band p{color:rgba(255,255,255,.75);font-size:15px;margin-bottom:28px}
+
+    /* ── FERIEN SPASS ── */
+    .fs-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:48px}
+    .fs-event-date{font-family:"Outfit",sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:10px}
+    .fs-title{font-family:"Outfit",sans-serif;font-size:1.6rem;font-weight:800;color:var(--dark);margin-bottom:6px;letter-spacing:-.02em}
+    .fs-motto{font-family:"Outfit",sans-serif;font-size:1rem;font-style:italic;color:var(--mid);margin-bottom:20px}
+    .fs-body{font-size:14.5px;line-height:1.85;color:var(--mid)}
+    .fs-body p{margin-bottom:12px}
+    .stations{display:flex;flex-direction:column;gap:12px;margin-top:24px}
+    .station{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
+    .stn{font-family:"Outfit",sans-serif;font-size:1.5rem;font-weight:800;color:var(--blue);line-height:1;flex-shrink:0;width:32px}
+    .stt{font-family:"Outfit",sans-serif;font-weight:700;color:var(--dark);font-size:13px;margin-bottom:3px}
+    .std{font-size:13px;color:var(--mid);line-height:1.6}
+    .fs-visual{background:var(--blue-soft);border-radius:var(--r);padding:32px;text-align:center;border:1px solid #bfdbfe}
+    .fs-num{font-family:"Outfit",sans-serif;font-size:5rem;font-weight:800;color:var(--blue);line-height:1}
+    .fs-numlabel{font-size:13px;color:#64748b;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;margin-bottom:24px}
+    .fs-mottobox{font-family:"Outfit",sans-serif;font-size:1.1rem;font-weight:700;color:var(--dark);font-style:italic;padding:18px;border:1.5px solid #bfdbfe;border-radius:var(--r);background:#fff}
+    .fs-mottobox small{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:6px;font-style:normal}
+
+    /* ── FOTO GRID FERIEN SPASS ── */
+    .foto-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+
+    /* ── JUGEND MOBILE ── */
+    .grid-contact{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+
+    .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+    @media(max-width:768px){
+      .form-row-2{grid-template-columns:1fr}
+      /* Ferien Spass */
+      .fs-grid{grid-template-columns:1fr}
+      .fs-num{font-size:3.5rem}
+      .fs-title{font-size:1.3rem}
+      /* CTA */
+      .cta-band{padding:32px 20px}
+      .cta-band h2{font-size:1.4rem}
+      /* News */
+      .news-inner{padding:20px 16px}
+      .news-box h3{font-size:1.15rem}
+      /* Kontakt */
+      .grid-contact{grid-template-columns:1fr;gap:40px}
+      /* Sections */
+      .section{padding:52px 0}
+      .section-alt{padding:52px 0}
+      /* Foto grid 1 col on small screens */
+      .foto-grid{grid-template-columns:1fr}
+      /* Hero buttons */
+      .hero-btns{flex-direction:column;align-items:center}
+    }
+
+    @media(max-width:480px){
+      .cta-band{padding:24px 16px}
+      .fs-visual{padding:20px}
+    }
+
+  
+    /* ── MOBILE OPTIMIERUNGEN ── */
+    @media(max-width:768px){
+      /* Container: knapp am Rand */
+      .container{padding:0 8px !important}
+      /* Sektionsabstände drastisch reduzieren */
+      .section,.section-alt{padding:22px 0 !important}
+      /* Überschriften + Labels */
+      h2.sh{font-size:1.4rem !important;margin-bottom:4px !important}
+      .section-label{margin-bottom:4px !important;font-size:10px !important}
+      .sh-line{margin:6px 0 12px !important}
+      /* Zeilenabstand global */
+      body{line-height:1.45 !important}
+      p{line-height:1.5 !important;margin-bottom:8px !important}
+      /* Karten seitlich knapp */
+      .card,.tm,.hl-card,.gc-body,.pc-body,.vl-card-body,
+      .erlensee-box,.grill-box,.cta-box,.news-inner,.imp-box,
+      .cta-band,.station,.fs-visual{
+        padding-left:10px !important;padding-right:10px !important}
+      .card{padding-top:12px !important;padding-bottom:12px !important}
+      /* Grid-Abstände */
+      .grid-2,.grid-3,.grid-auto,.gewaesser-grid,.highlights-grid{gap:8px !important}
+      /* Abstände innerhalb Karten */
+      .news-card h3{font-size:.95rem !important;margin-bottom:6px !important}
+      .news-card p{font-size:12.5px !important;line-height:1.5 !important}
+      .news-badge{margin-bottom:6px !important}
+      .vl-card-body h3{font-size:.95rem !important;margin-bottom:4px !important}
+      .vl-card-body p{font-size:12px !important;line-height:1.5 !important}
+      .vl-card-body{padding:10px !important}
+      /* Preiskarten */
+      .pc-body{padding:12px 10px !important}
+      .pc-price{font-size:1.7rem !important}
+      .pc-period{font-size:11px !important;margin:3px 0 8px !important}
+      .pc-then{padding:7px !important;font-size:11px !important}
+      /* Erlensee */
+      .erlensee-box{margin-top:12px !important;padding:12px 10px !important}
+      .erlensee-stats{gap:14px !important;margin:10px 0 12px !important}
+      .es-num{font-size:1.5rem !important}
+      /* Taglines */
+      .taglines{padding:16px 0 !important;margin:16px 0 !important}
+      .tagline-1{font-size:1.1rem !important}
+      .tagline-2{font-size:.9rem !important}
+      /* Grill + CTA */
+      .grill-box{padding:12px 10px !important;margin-top:16px !important}
+      .grill-box h3{font-size:1.1rem !important;margin-bottom:8px !important}
+      .cta-box{padding:18px 10px !important;margin-top:16px !important}
+      .cta-box h3{font-size:1.2rem !important}
+      /* Gewässer */
+      .gc-head{padding:10px 12px !important}
+      .gc-body{padding:12px 10px !important}
+      .gc-body p{font-size:12px !important;margin-bottom:6px !important}
+      /* Termine */
+      .termine-table td{line-height:1.25 !important;font-size:11.5px !important}
+      .termine-table tr{padding:5px 8px !important}
+      .month-row td{padding:4px 8px !important}
+      /* Footer */
+      footer{padding:20px 0 12px !important}
+      .footer-grid{gap:14px !important}
+      .footer-links{gap:5px !important}
+      .footer-bottom{padding-top:10px !important;font-size:11px !important}
+      /* Impressum */
+      .imp-box{padding:16px 10px !important}
+      .imp-section{margin-bottom:16px !important;padding-bottom:14px !important}
+      .imp-h3{margin:8px 0 3px !important;font-size:.9rem !important}
+      .imp-p{font-size:12.5px !important;line-height:1.55 !important}
+      .imp-label{margin-bottom:5px !important;font-size:9px !important}
+      .imp-hero{padding:70px 10px 18px !important}
+      .imp-hero h1{font-size:1.5rem !important}
+      /* Jugend */
+      .fs-grid{gap:14px !important}
+      .fs-title{font-size:1.1rem !important}
+      .fs-num{font-size:2.8rem !important}
+      .cta-band{padding:18px 10px !important}
+      .cta-band h2{font-size:1.2rem !important}
+      .news-inner{padding:14px 10px !important}
+      .news-box h3{font-size:.95rem !important}
+      .station{padding:10px !important}
+      .form-row-2{grid-template-columns:1fr !important}
+      .grid-contact{grid-template-columns:1fr !important;gap:16px !important}
+    }
+
+  </style>
+</head>
+<body>
+<a href="#main" class="skip">Zum Inhalt springen</a>
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav role="navigation" aria-label="Hauptnavigation" id="nav">
+  <a href="sfva.html" class="logo" aria-label="Startseite">
+    <div class="logo-icon">
+  <img src="SFV_Logo.png" alt="Sportfischer-Verein Angelbachtal Logo" 
+       style="width:56px;height:56px;border-radius:12px;object-fit:contain">
+	   
+</div>
+    <div class="logo-text">
+      <strong>SFV Angelbachtal</strong>
+      <span>e.V. · seit 1972</span>
+    </div>
+  </a>
+  <ul class="nav-center" role="list">
+    <li><a href="sfva.html#verein">Verein</a></li>
+    <li><a href="sfva.html#news">News</a></li>
+    <li><a href="sfva.html#mitgliedschaft">Mitgliedschaft</a></li>
+    <li><a href="sfva.html#vereinsleben">Vereinsleben</a></li>
+    <li><a href="sfva.html#termine">Termine</a></li>
+    <li><a href="jugend.html" class="active">Jugend</a></li>
+    <li><a href="impressum.html">Impressum</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="btn-login" aria-label="Login – demnächst verfügbar">Log in</span>
+    <span class="btn-login-note">demnächst</span>
+  </div>
+  <button class="burger-menu" id="burgerBtn" aria-label="Menü öffnen">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+</nav>
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header class="hero hero-jugend" role="banner">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Jugendprogramm · Erlensee Angelbachtal</span>
+    <h1 class="hero-h1">Angeln für<br><span class="ac">den Nachwuchs</span></h1>
+    <p class="hero-sub">Spaß, Natur und das erste Fischererlebnis – für Kinder ab 7 Jahren</p>
+    <div class="hero-btns">
+      <a href="#kontakt" class="btn btn-primary">Jetzt mitmachen</a>
+      <a href="#ferienspass" class="btn btn-outline-w">Ferien Spaß 2024</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- NEWS: Jugendfischereischein -->
+<section class="section" id="aktuelles" aria-labelledby="news-h">
+  <div class="container">
+    <p class="section-label rv">Aktuelles</p>
+    <h2 class="sh rv d1" id="news-h">Jugendfischereischein <span class="ac">ab sieben Jahren</span></h2>
+    <div class="sh-line rv d2"></div>
+    <div class="news-box rv d3">
+      <div class="news-accent" aria-hidden="true"></div>
+      <div class="news-inner">
+        <p class="news-tag2">Landtag Baden-Württemberg · Neue Regelung</p>
+        <h3>Kinder dürfen bald ab sieben Jahren den Jugendfischereischein machen!</h3>
+        <p>Stuttgart. Künftig dürfen in Baden-Württemberg auch Kinder angeln gehen. Der zuständige Minister Peter Hauk (CDU) brauchte, worauf Landtagsvizepräsident Daniel Born (SPD) ausdrücklich hinwies, genau 31 Sekunden, um einen Gesetzentwurf anzukündigen zur Absenkung der Altersgrenze für den Jugendfischereischein auf sieben Jahren.</p>
+        <p>Abgelehnt wird von allen anderen Fraktionen dagegen der Vorstoß der AfD, Altersgrenzen ganz streichen. „Das Einzige, was sie wollen, ist Wählerstimmen zu angeln, aber sie fischen im Trüben", so Reinhold Pix. Für die CDU lobte Sarah Schweizer, wie Fischer sich für eine artgerechte Tierwelt unter Wasser eingesetzt hätten „lange bevor finanzkräftige NGOs das Thema entdecken".</p>
+        <p>Hans Peter Storz (SPD) und Klaus Hoher (FDP), beide aus der Bodensee-Region, schlugen zudem den Bogen zu den Kormoranbeständen am Bodensee, die reduziert werden müssten, weil Fischarten bedroht seien. Hoher verlangte das geplante Kormoranmanagement zügig umzusetzen, um Fischbestände zu schützen: Es gebe 150.000 Angler in Baden-Württemberg – „und jeder hat eine rote Liste dabei, die hat der Kormoran nicht".</p>
+        <p class="news-source">Quelle: <a href="https://www.staatsanzeiger.de/debatten-im-landtag/jugendfischereischein-kuenftig-ab-sieben-jahren/" target="_blank" rel="noopener">staatsanzeiger.de – Debatten im Landtag</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA: Werde Mitglied -->
+<section style="padding:0 0 88px">
+  <div class="container">
+    <div class="cta-band rv">
+      <h2>Werde Mitglied!</h2>
+      <p>Wir freuen uns auf DICH 🙂 – egal ob als Kind, Jugendlicher oder junger Erwachsener.</p>
+      <div class="hero-btns">
+        <a href="#kontakt" class="btn btn-primary" style="background:#fff;color:var(--blue)">Jetzt anmelden</a>
+        <a href="sfva.html#mitgliedschaft" class="btn btn-outline-w">Mitgliedschaft ansehen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FERIEN SPASS 2024 -->
+<section class="section-alt" id="ferienspass" aria-labelledby="fs-h">
+  <div class="container">
+    <p class="section-label rv">Rückblick</p>
+    <h2 class="sh rv d1" id="fs-h">Ferien Spaß <span class="ac">2024</span></h2>
+    <div class="sh-line rv d2"></div>
+    <div class="fs-grid rv d3">
+      <div>
+        <p class="fs-event-date">03. August 2024 · Erlensee Angelbachtal</p>
+        <h3 class="fs-title">„Catch Your Fish"</h3>
+        <p class="fs-motto">Unser Motto 2024</p>
+        <div class="fs-body">
+          <p>Am 03.08.2024 fand wieder einmal unser beliebter Ferien Spaß statt. Im Vorhinein gingen sehr viele Anmeldungen ein, sodass wir unsere Kapazität schnell noch auf <strong>22 Kinder</strong> erweitern mussten.</p>
+          <p>Eine Gruppe um unseren 2. Vorsitzenden <strong>Sven Nagel</strong> hat sich dieses Jahr ein neues Programm überlegt. Die Kinder mussten in Gruppen aufgeteilt vier Stationen meistern.</p>
+          <p>Jedes Kind hat am Ende seinen Fisch gefangen und stolz präsentiert. Danach wurden alle Teilnehmer noch zu einem Imbiss eingeladen. Ein großer Dank geht an das Vorbereitungsteam!</p>
+        </div>
+        <div class="stations">
+          <div class="station"><span class="stn">1</span><div><p class="stt">Fische des Erlensees</p><p class="std">Den Kindern wurden die heimischen Fischarten vorgestellt.</p></div></div>
+          <div class="station"><span class="stn">2</span><div><p class="stt">Grundlagen des Angelns</p><p class="std">Technik, Ausrüstung und das richtige Verhalten am Wasser.</p></div></div>
+          <div class="station"><span class="stn">3</span><div><p class="stt">Eigene Angel bauen</p><p class="std">Jedes Kind baut seine eigene Angel – Handwerk und Stolz inklusive.</p></div></div>
+          <div class="station"><span class="stn">4</span><div><p class="stt">Angeln unter Anleitung</p><p class="std">Die selbstgebaute Angel testen – und den eigenen Fisch fangen!</p></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="fs-visual">
+          <div class="fs-num">22</div>
+          <div class="fs-numlabel">Kinder nahmen teil</div>
+          <div class="fs-mottobox"><small>Motto 2024</small>„Catch Your Fish"</div>
+        </div>
+        <div class="foto-grid" style="margin-top:16px">
+          <div class="photo photo-4-3" style="border-radius:var(--r)">
+            <div class="photo-icon">📸</div>
+            <div class="photo-label">FOTO: Kinder beim Angeln</div>
+          </div>
+          <div class="photo photo-4-3" style="border-radius:var(--r)">
+            <div class="photo-icon">📸</div>
+            <div class="photo-label">FOTO: Angelkurs</div>
+          </div>
+          <div class="photo photo-4-3" style="border-radius:var(--r)">
+            <div class="photo-icon">📸</div>
+            <div class="photo-label">FOTO: Gruppenphoto</div>
+          </div>
+          <div class="photo photo-4-3" style="border-radius:var(--r)">
+            <div class="photo-icon">📸</div>
+            <div class="photo-label">FOTO: Fang des Tages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="section" id="kontakt" aria-labelledby="kon-h">
+  <div class="container">
+    <div class="grid-contact">
+      <div>
+        <p class="section-label rv">Kontakt Jugend</p>
+        <h2 class="sh rv d1" id="kon-h">Interesse geweckt?<br><span class="ac">Wir freuen uns!</span></h2>
+        <div class="sh-line rv d2"></div>
+        <p style="font-size:15px;line-height:1.85;color:var(--mid);margin-bottom:28px" class="rv d3">Bei Rückfragen stehen wir euch sehr gerne zur Verfügung. Wir freuen uns auf eure Nachricht und euch persönlich kennenlernen zu dürfen.</p>
+        <div style="display:flex;flex-direction:column;gap:12px" class="rv d4">
+          <div style="display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px 16px">
+            <div style="width:36px;height:36px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">🎯</div>
+            <div><p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:3px">Sport-Team &amp; Jugendwart</p><p style="font-size:14px">Bea Speer &amp; Bernd Rittlinger</p></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px 16px">
+            <div style="width:36px;height:36px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">✉️</div>
+            <div><p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:3px">E-Mail</p><p style="font-size:14px"><a href="mailto:info@sportfischer-angelbachtal.de" style="color:inherit;text-decoration:none">info@sportfischer-angelbachtal.de</a></p></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:14px 16px">
+            <div style="width:36px;height:36px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">📞</div>
+            <div><p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:3px">Telefon</p><p style="font-size:14px"><a href="tel:+491707617350" style="color:inherit;text-decoration:none">+49 (0) 170 7617 350</a></p></div>
+          </div>
+        </div>
+      </div>
+      <div class="rv d2">
+        <p style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.25rem;color:var(--dark);margin-bottom:20px">Nachricht schreiben</p>
+        <form method="POST" id="jugend-form">
+          <input type="hidden" name="access_key" value="e931c39c-31d7-4588-bd6b-a1a6d4ef49bf">
+          <input type="hidden" name="subject" value="Neue Anfrage – SFVA Jugend">
+          <input type="checkbox" name="botcheck" id="" style="display:none">
+
+          <div class="form-row-2">
+            <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
+              <label for="fn" style="font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--mid)">Name</label>
+              <input type="text" id="fn" name="name" autocomplete="name" required placeholder="Euer Name" style="padding:12px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;background:#fff;border:1.5px solid var(--border);border-radius:var(--r);color:var(--dark);outline:none;width:100%">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
+              <label for="ft" style="font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--mid)">Telefon</label>
+              <input type="tel" id="ft" name="phone" autocomplete="tel" placeholder="+49 ..." style="padding:12px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;background:#fff;border:1.5px solid var(--border);border-radius:var(--r);color:var(--dark);outline:none;width:100%">
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
+            <label for="fe" style="font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--mid)">E-Mail</label>
+            <input type="email" id="fe" name="email" autocomplete="email" required placeholder="eure@email.de" style="padding:12px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;background:#fff;border:1.5px solid var(--border);border-radius:var(--r);color:var(--dark);outline:none;width:100%">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:16px">
+            <label for="fm" style="font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--mid)">Nachricht</label>
+            <textarea id="fm" name="message" required placeholder="z.B. Alter des Kindes, Fragen zum Kurs..." style="padding:12px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;background:#fff;border:1.5px solid var(--border);border-radius:var(--r);color:var(--dark);outline:none;resize:vertical;min-height:110px;width:100%"></textarea>
+          </div>
+
+          <div id="jugend-result" style="margin-bottom:12px;font-size:14px;font-weight:600;display:none"></div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:14px;color:var(--mid)">
+            <input type="checkbox" id="human" required style="width:18px;height:18px;accent-color:var(--blue);cursor:pointer;flex-shrink:0">
+            <label for="human" style="cursor:pointer">Ich bin kein Roboter</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:12px">Nachricht absenden →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" style="filter:brightness(2)">
+          <div class="logo-icon" style="background:transparent;padding:0"><img src="SFV_Logo.png" alt="SFV Angelbachtal Logo" style="width:36px;height:36px;object-fit:contain;border-radius:6px"></div>
+                    <div class="logo-text">
+  <strong style="color:#94a3b8">SFV Angelbachtal</strong>
+  <span>e.V. · seit 1972</span>
+</div>
+        </a>
+        <p>Natur, Hobby und Leidenschaft am Erlensee Angelbachtal. Herzlich willkommen in unserer Gemeinschaft!</p>
+        <a href="https://www.facebook.com/people/Sportfischerverein-Angelbachtal-eV/61567288388487/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;color:#94a3b8;text-decoration:none;font-size:13px;margin-top:14px;transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#94a3b8'">
+          <span style="background:rgba(255,255,255,.08);border-radius:6px;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-family:Outfit,sans-serif;font-weight:700">f</span>
+          Facebook
+        </a>
+      </div>
+      <div>
+        <p class="footer-h">Navigation</p>
+        <ul class="footer-links">
+          <li><a href="#verein">Verein</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#mitgliedschaft">Mitgliedschaft</a></li>
+          <li><a href="#vereinsleben">Vereinsleben</a></li>
+          <li><a href="#termine">Termine</a></li>
+          <li><a href="jugend.html" class="active">Jugend</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-h">Kontakt</p>
+        <ul class="footer-links">
+          <li><a href="mailto:info@sportfischer-angelbachtal.de">info@sportfischer-angelbachtal.de</a></li>
+          <li><a href="tel:+491707617350">+49 (0) 170 7617 350</a></li>
+          <li style="color:#94a3b8;padding-top:4px">Finkenweg 12<br>74918 Angelbachtal</li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-h">Rechtliches</p>
+        <ul class="footer-links">
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="impressum.html#datenschutz">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Sportfischer-Verein Angelbachtal e.V. · Alle Rechte vorbehalten.</span>
+      <span>Erlensee Angelbachtal · seit 1972</span>
+    </div>
+  </div>
+</footer>
+<script>
+const nav = document.getElementById("nav");
+const sections = document.querySelectorAll("section[id], header");
+const navLinks = document.querySelectorAll(".nav-center a");
+const burgerBtn = document.getElementById("burgerBtn");
+const navCenter = document.querySelector(".nav-center");
+
+// Scroll: Nav nur auf Desktop verkleinern, Burger-Menü beim Scrollen schließen
+window.addEventListener("scroll", () => {
+  if (window.innerWidth > 768) {
+    nav.style.height = scrollY > 60 ? "56px" : "";
+  }
+  // Active link
+  let current = "";
+  sections.forEach(s => { if (scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => {
+    a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+  });
+  // Burger-Menü beim Scrollen schließen
+  navCenter.classList.remove("active");
+  burgerBtn.classList.remove("active");
+}, { passive: true });
+
+// Scroll reveal
+const io = new IntersectionObserver(
+  e => e.forEach(x => x.isIntersecting && x.target.classList.add("vis")),
+  { threshold: 0.08 }
+);
+document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+// Burger Toggle
+burgerBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  navCenter.classList.toggle("active");
+  burgerBtn.classList.toggle("active");
+});
+
+// Menü schließen wenn Link geklickt
+navLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    navCenter.classList.remove("active");
+    burgerBtn.classList.remove("active");
+  });
+});
+
+// Menü schließen wenn außerhalb geklickt
+document.addEventListener("click", (e) => {
+  if (!nav.contains(e.target)) {
+    navCenter.classList.remove("active");
+    burgerBtn.classList.remove("active");
+  }
+});
+
+
+// Web3Forms
+const jugendForm = document.getElementById('jugend-form');
+const jugendResult = document.getElementById('jugend-result');
+
+jugendForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(jugendForm);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+  jugendResult.style.display = 'block';
+  jugendResult.style.color = '#334155';
+  jugendResult.innerHTML = 'Wird gesendet…';
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: json
+  })
+  .then(async (response) => {
+    let json = await response.json();
+    if (response.status == 200) {
+      jugendResult.style.color = '#166534';
+      jugendResult.innerHTML = '✅ Anfrage erfolgreich gesendet!';
+    } else {
+      jugendResult.style.color = '#991b1b';
+      jugendResult.innerHTML = '❌ ' + json.message;
+    }
+  })
+  .catch(error => {
+    jugendResult.style.color = '#991b1b';
+    jugendResult.innerHTML = '❌ Fehler beim Senden. Bitte versuche es nochmal.';
+  })
+  .then(function() {
+    jugendForm.reset();
+    setTimeout(() => { jugendResult.style.display = 'none'; }, 5000);
+  });
+});
+</script>
+</body>
+</html>
