@@ -149,7 +149,14 @@
     .vl-date{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:8px}
     .vl-card-body h3{font-family:"Outfit",sans-serif;font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:10px}
     .vl-card-body p{font-size:13.5px;color:var(--mid);line-height:1.7}
-    .vl-card-body h4{font-size:.9rem;font-weight:700;color:var(--dark);margin:10px 0 5px}
+    .vl-card-body h4{font-family:"Outfit",sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin:14px 0 6px}
+
+    /* ── GLOW BUTTON ── */
+    @keyframes glow-pulse{
+      0%,100%{box-shadow:0 0 6px 2px rgba(0,85,229,.35),0 0 0 0 rgba(255,255,255,0)}
+      50%{box-shadow:0 0 18px 6px rgba(0,85,229,.55),0 0 28px 10px rgba(200,220,255,.25)}
+    }
+    .btn-glow{animation:glow-pulse 2s ease-in-out infinite}
 
     /* ── TERMINKALENDER ── */
     .termine-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:0 4px 20px rgba(0,0,0,.07);border:1px solid var(--border)}
@@ -667,7 +674,7 @@
 
     </div>
     <div class="news-more rv">
-      <button class="btn btn-outline" id="news-toggle-btn" onclick="toggleNews()">Weitere News laden</button>
+      <button class="btn btn-outline btn-glow" id="news-toggle-btn" onclick="toggleNews()">Weitere News laden</button>
     </div>
   </div>
 </section>
@@ -810,7 +817,7 @@
           <h4>Top organisiert: Danke, Holger! 🥩🍔🔥</h4>
           <p>Dass das ganze Wochenende so reibungslos ablief, haben wir vor allem unserem Sportwart Holger zu verdanken. Er hat organisatorisch im Vorfeld alles perfekt vorbereitet – ein riesiges Dankeschön!</p>
           <p>Nach diesen tollen Tagen blicken wir in lauter zufriedene Gesichter. Danke an alle, die dabei waren und dieses Wochenende so unvergesslich gemacht haben!</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+          <div style="display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px">
             <img src="Koenigsangeln2026-3.jpg"
                  alt="Königs-Hegefischen Impression"
                  style="width:100%;height:auto;display:block;border-radius:8px">
@@ -832,7 +839,7 @@
         </div>
       </article>
 
-      <article class="vl-card card-hover rv d3">
+      <article class="vl-card card-hover rv vl-hidden">
         <img src="13. Fassanstich _ Grillen.jpg"
              alt="Fassanstich und Grillen beim Saisonstart"
              style="width:100%;height:auto;display:block">
@@ -856,7 +863,7 @@
 
     </div>
     <div class="news-more rv" style="margin-top:24px">
-      <button class="btn btn-outline" id="vl-toggle-btn" onclick="toggleVL()">Weitere Beiträge laden</button>
+      <button class="btn btn-outline btn-glow" id="vl-toggle-btn" onclick="toggleVL()">Weitere Beiträge laden</button>
     </div>
   </div>
 </section>
