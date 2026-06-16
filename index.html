@@ -151,6 +151,9 @@
     .vl-card-body p{font-size:13.5px;color:var(--mid);line-height:1.7}
     .vl-card-body h4{font-family:"Outfit",sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin:14px 0 6px}
 
+    /* ── ALLE INHALTSBILDER 1:1 ZENTRIERT ── */
+    main img{aspect-ratio:1/1 !important;object-fit:cover !important;object-position:center center !important;width:100% !important;display:block !important}
+
     /* ── GLOW BUTTON ── */
     @keyframes glow-pulse{
       0%,100%{box-shadow:0 0 6px 2px rgba(0,85,229,.35),0 0 0 0 rgba(255,255,255,0)}
@@ -199,6 +202,25 @@
     /* ── VEREINSLEBEN COLLAPSE ── */
     .vl-hidden{display:none}
     .vl-hidden.shown{display:block}
+
+    /* ── EXPAND ACCORDION (News + VL) ── */
+    .expand-list{list-style:none;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:16px}
+    .expand-item{border-bottom:1px solid var(--border)}
+    .expand-item:last-child{border-bottom:none}
+    .expand-summary{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;background:#fff;transition:background .2s;user-select:none}
+    .expand-summary:hover,.expand-summary.open{background:var(--blue-soft)}
+    .expand-sum-date{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.5px;flex-shrink:0;min-width:120px}
+    .expand-sum-title{font-size:14px;font-weight:600;color:var(--dark);flex:1;line-height:1.35}
+    .expand-arrow{font-size:22px;color:var(--blue);transition:transform .3s ease;flex-shrink:0;line-height:1}
+    .expand-summary.open .expand-arrow{transform:rotate(90deg)}
+    .expand-body{display:none;background:#f8fafc;border-top:1px solid var(--border);padding:20px}
+    .expand-body.open{display:block}
+    @media(max-width:768px){
+      .expand-summary{padding:12px 14px;gap:10px}
+      .expand-sum-date{min-width:80px;font-size:10px}
+      .expand-sum-title{font-size:13px}
+      .expand-body{padding:12px}
+    }
 
     /* ── REVEAL ── */
     .rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
@@ -673,6 +695,7 @@
       </article>
 
     </div>
+    <div id="news-expand-list" style="display:none"></div>
     <div class="news-more rv">
       <button class="btn btn-outline btn-glow" id="news-toggle-btn" onclick="toggleNews()">Weitere News laden</button>
     </div>
@@ -862,6 +885,7 @@
       </article>
 
     </div>
+    <div id="vl-expand-list" style="display:none"></div>
     <div class="news-more rv" style="margin-top:24px">
       <button class="btn btn-outline btn-glow" id="vl-toggle-btn" onclick="toggleVL()">Weitere Beiträge laden</button>
     </div>
@@ -1138,52 +1162,80 @@ if (mainForm) {
   });
 }
 
+// Accordion expand helper (News + Vereinsleben)
+function buildExpandList(hiddenSelector, listId, dateSelector, btnId, openLabel, closeLabel) {
+  const list = document.getElementById(listId);
+  const btn = document.getElementById(btnId);
+  const hiddenItems = document.querySelectorAll(hiddenSelector);
+
+  if (list.dataset.open === '1') {
+    list.innerHTML = '';
+    list.dataset.open = '0';
+    list.style.display = 'none';
+    btn.textContent = openLabel;
+    return;
+  }
+
+  const ul = document.createElement('ul');
+  ul.className = 'expand-list';
+
+  hiddenItems.forEach(article => {
+    const dateEl = article.querySelector(dateSelector);
+    const titleEl = article.querySelector('h3');
+    const date = dateEl ? dateEl.textContent.trim() : '';
+    const title = titleEl ? titleEl.textContent.trim() : '';
+
+    const li = document.createElement('li');
+    li.className = 'expand-item';
+
+    const summary = document.createElement('div');
+    summary.className = 'expand-summary';
+    summary.innerHTML =
+      '<span class="expand-sum-date">' + date + '</span>' +
+      '<span class="expand-sum-title">' + title + '</span>' +
+      '<span class="expand-arrow">›</span>';
+
+    const body = document.createElement('div');
+    body.className = 'expand-body';
+
+    const clone = article.cloneNode(true);
+    clone.classList.remove('news-hidden', 'vl-hidden', 'rv', 'd1', 'd2', 'd3', 'd4');
+    clone.classList.add('vis');
+    clone.style.display = 'block';
+    clone.style.margin = '0';
+    body.appendChild(clone);
+
+    summary.addEventListener('click', () => {
+      const isOpen = summary.classList.contains('open');
+      ul.querySelectorAll('.expand-summary').forEach(s => {
+        s.classList.remove('open');
+        s.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) {
+        summary.classList.add('open');
+        body.classList.add('open');
+      }
+    });
+
+    li.appendChild(summary);
+    li.appendChild(body);
+    ul.appendChild(li);
+  });
+
+  list.appendChild(ul);
+  list.style.display = 'block';
+  list.dataset.open = '1';
+  btn.textContent = closeLabel;
+}
+
 // News toggle
 function toggleNews() {
-  const hidden = document.querySelectorAll('.news-hidden');
-  const btn = document.getElementById('news-toggle-btn');
-  const grid = document.getElementById('news-grid');
-  const anyShown = document.querySelector('.news-hidden.shown');
-  hidden.forEach(el => {
-    if (!anyShown) {
-      el.style.display = 'block';
-      el.classList.add('shown');
-      setTimeout(() => el.classList.add('vis'), 50);
-    } else {
-      el.style.display = 'none';
-      el.classList.remove('shown','vis');
-    }
-  });
-  if (!anyShown) {
-    grid.classList.add('multi');
-    btn.textContent = 'Weniger anzeigen ↑';
-  } else {
-    grid.classList.remove('multi');
-    btn.textContent = 'Weitere News laden';
-  }
+  buildExpandList('.news-hidden', 'news-expand-list', '.news-badge', 'news-toggle-btn', 'Weitere News laden', 'Weniger anzeigen ↑');
 }
 
 // Vereinsleben toggle
 function toggleVL() {
-  const hidden = document.querySelectorAll('.vl-hidden');
-  const btn = document.getElementById('vl-toggle-btn');
-  const grid = document.getElementById('vl-grid');
-  const anyShown = document.querySelector('.vl-hidden.shown');
-  hidden.forEach(el => {
-    if (!anyShown) {
-      el.style.display = 'block';
-      el.classList.add('shown');
-      setTimeout(() => el.classList.add('vis'), 50);
-    } else {
-      el.style.display = 'none';
-      el.classList.remove('shown','vis');
-    }
-  });
-  if (!anyShown) {
-    btn.textContent = 'Weniger anzeigen ↑';
-  } else {
-    btn.textContent = 'Weitere Beiträge laden';
-  }
+  buildExpandList('.vl-hidden', 'vl-expand-list', '.vl-date', 'vl-toggle-btn', 'Weitere Beiträge laden', 'Weniger anzeigen ↑');
 }
 </script>
 </body>
