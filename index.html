@@ -189,6 +189,10 @@
     .news-hidden{display:none}
     .news-hidden.vis{display:block}
 
+    /* ── VEREINSLEBEN COLLAPSE ── */
+    .vl-hidden{display:none}
+    .vl-hidden.shown{display:block}
+
     /* ── REVEAL ── */
     .rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
     .rv.vis{opacity:1;transform:none}
@@ -784,12 +788,43 @@
       <h2 class="sh" id="vl-h">Unser <span class="ac">Vereinsleben</span></h2>
       <div class="sh-line" style="margin:14px auto 0"></div>
     </div>
-    <div class="grid-3">
+    <div class="grid-3" id="vl-grid">
 
+      <!-- NEUESTE KARTE: Königs-Hegefischen -->
       <article class="vl-card card-hover rv d1">
+        <img src="Koenigsangeln2026-1.jpg"
+             alt="Königs-Hegefischen am Erlensee"
+             style="width:100%;height:auto;display:block">
+        <div class="vl-card-body">
+          <p class="vl-date">14.06.2026</p>
+          <h3>Sonne, Grillen &amp; Tradition: Unser Königs-Hegefischen!</h3>
+          <p>Was für ein geniales Wochenende liegt hinter uns! Bei absolutem Topwetter haben wir am Erlensee unser traditionelles Königs-Hegefischen durchgeführt.</p>
+          <h4>Jugend aktiv &amp; ein fleißiger Vorstand</h4>
+          <p>Besonders cool: Drei unserer Jugendlichen waren das ganze Wochenende über mit vollem Eifer dabei – starke Leistung! 👏</p>
+          <p>Im Rahmen der Gewässerhege gab es natürlich auch ein paar Highlights: Den schwersten Fisch durfte dieses Mal unser 1. Vorstand an Land ziehen.</p>
+          <h4>📸 Das geheime Foto-Highlight: Jürgen und sein Rotauge!</h4>
+          <p>Bisher hat es noch keiner gesehen, aber wir wollen es euch auf keinen Fall vorenthalten – dieses Bild ist der absolute Aufheiterer der Woche! Sein stolzes Rotauge und die sagenumwobene Portion von 7 Maiskörnern. Ein echtes Unikat! 😂</p>
+          <img src="Koenigsangeln2026-2.jpg"
+               alt="Jürgen mit seinem Rotauge und 7 Maiskörnern"
+               style="width:100%;height:auto;display:block;border-radius:8px;margin:12px 0">
+          <h4>Top organisiert: Danke, Holger! 🥩🍔🔥</h4>
+          <p>Dass das ganze Wochenende so reibungslos ablief, haben wir vor allem unserem Sportwart Holger zu verdanken. Er hat organisatorisch im Vorfeld alles perfekt vorbereitet – ein riesiges Dankeschön!</p>
+          <p>Nach diesen tollen Tagen blicken wir in lauter zufriedene Gesichter. Danke an alle, die dabei waren und dieses Wochenende so unvergesslich gemacht haben!</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+            <img src="Koenigsangeln2026-3.jpg"
+                 alt="Königs-Hegefischen Impression"
+                 style="width:100%;height:auto;display:block;border-radius:8px">
+            <img src="Koenigsangeln2026-4.jpg"
+                 alt="Königs-Hegefischen Impression"
+                 style="width:100%;height:auto;display:block;border-radius:8px">
+          </div>
+        </div>
+      </article>
+
+      <article class="vl-card card-hover rv d2">
         <img src="12.Muttertag Event.jpg"
              alt="Muttertag Event am See"
-             style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
+             style="width:100%;height:auto;display:block">
         <div class="vl-card-body">
           <p class="vl-date">10.05.2026</p>
           <h3>Muttertag am See</h3>
@@ -797,10 +832,10 @@
         </div>
       </article>
 
-      <article class="vl-card card-hover rv d2">
+      <article class="vl-card card-hover rv d3">
         <img src="13. Fassanstich _ Grillen.jpg"
              alt="Fassanstich und Grillen beim Saisonstart"
-             style="width:100%;aspect-ratio:9/16;object-fit:cover;display:block">
+             style="width:100%;height:auto;display:block">
         <div class="vl-card-body">
           <p class="vl-date">Saisonstart 2026</p>
           <h3>O'zapft is am Wasser!</h3>
@@ -808,10 +843,10 @@
         </div>
       </article>
 
-      <article class="vl-card card-hover rv d3">
+      <article class="vl-card card-hover rv vl-hidden">
         <img src="14.Anangeln _ Saisonstart.jpeg"
              alt="Anangeln und Saisoneröffnung"
-             style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
+             style="width:100%;height:auto;display:block">
         <div class="vl-card-body">
           <p class="vl-date">26.04.2026</p>
           <h3>Angelsaison-Eröffnung</h3>
@@ -819,6 +854,9 @@
         </div>
       </article>
 
+    </div>
+    <div class="news-more rv" style="margin-top:24px">
+      <button class="btn btn-outline" id="vl-toggle-btn" onclick="toggleVL()">Weitere Beiträge laden</button>
     </div>
   </div>
 </section>
@@ -1115,6 +1153,29 @@ function toggleNews() {
   } else {
     grid.classList.remove('multi');
     btn.textContent = 'Weitere News laden';
+  }
+}
+
+// Vereinsleben toggle
+function toggleVL() {
+  const hidden = document.querySelectorAll('.vl-hidden');
+  const btn = document.getElementById('vl-toggle-btn');
+  const grid = document.getElementById('vl-grid');
+  const anyShown = document.querySelector('.vl-hidden.shown');
+  hidden.forEach(el => {
+    if (!anyShown) {
+      el.style.display = 'block';
+      el.classList.add('shown');
+      setTimeout(() => el.classList.add('vis'), 50);
+    } else {
+      el.style.display = 'none';
+      el.classList.remove('shown','vis');
+    }
+  });
+  if (!anyShown) {
+    btn.textContent = 'Weniger anzeigen ↑';
+  } else {
+    btn.textContent = 'Weitere Beiträge laden';
   }
 }
 </script>
