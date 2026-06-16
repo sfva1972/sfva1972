@@ -478,18 +478,21 @@
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
           <div style="text-align:center">
             <img src="2. - 1. Vorsitzender Michael Fischer.jpg" alt="Michael Fischer"
+                 class="no-crop"
                  style="width:100%;height:auto;border-radius:10px;display:block">
             <p style="font-size:12px;font-weight:700;color:var(--dark);margin-top:7px">Michael Fischer</p>
             <p style="font-size:10px;color:var(--mid)">1. Vorsitzender</p>
           </div>
           <div style="text-align:center">
             <img src="3. -2. Vorsitzender Sven Nagel.jpg" alt="Sven Nagel"
+                 class="no-crop"
                  style="width:100%;height:auto;border-radius:10px;display:block">
             <p style="font-size:12px;font-weight:700;color:var(--dark);margin-top:7px">Sven Nagel</p>
             <p style="font-size:10px;color:var(--mid)">2. Vorsitzender</p>
           </div>
           <div style="text-align:center">
             <img src="4. -3. Vorsitzender  Hans-Josef Lakatos.jpg" alt="Hans-Josef Lakatos"
+                 class="no-crop"
                  style="width:100%;height:auto;border-radius:10px;display:block">
             <p style="font-size:12px;font-weight:700;color:var(--dark);margin-top:7px">Hans-Josef Lakatos</p>
             <p style="font-size:10px;color:var(--mid)">3. Vorsitzender</p>
@@ -1244,7 +1247,7 @@ function applyPortraitCrop(img) {
     img.style.display = 'block';
   }
 }
-document.querySelectorAll('main img').forEach(img => {
+document.querySelectorAll('main img:not(.no-crop)').forEach(img => {
   if (img.complete && img.naturalWidth > 0) {
     applyPortraitCrop(img);
   } else {
