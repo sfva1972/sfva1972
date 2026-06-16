@@ -151,9 +151,6 @@
     .vl-card-body p{font-size:13.5px;color:var(--mid);line-height:1.7}
     .vl-card-body h4{font-family:"Outfit",sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin:14px 0 6px}
 
-    /* ── ALLE INHALTSBILDER 1:1 ZENTRIERT ── */
-    main img{aspect-ratio:1/1 !important;object-fit:cover !important;object-position:center center !important;width:100% !important;display:block !important}
-
     /* ── GLOW BUTTON ── */
     @keyframes glow-pulse{
       0%,100%{box-shadow:0 0 6px 2px rgba(0,85,229,.35),0 0 0 0 rgba(255,255,255,0)}
@@ -1237,6 +1234,23 @@ function toggleNews() {
 function toggleVL() {
   buildExpandList('.vl-hidden', 'vl-expand-list', '.vl-date', 'vl-toggle-btn', 'Weitere Beiträge laden', 'Weniger anzeigen ↑');
 }
+// Hochkant-Fotos → 1:1 zentriert
+function applyPortraitCrop(img) {
+  if (img.naturalHeight > img.naturalWidth) {
+    img.style.aspectRatio = '1/1';
+    img.style.objectFit = 'cover';
+    img.style.objectPosition = 'center center';
+    img.style.width = '100%';
+    img.style.display = 'block';
+  }
+}
+document.querySelectorAll('main img').forEach(img => {
+  if (img.complete && img.naturalWidth > 0) {
+    applyPortraitCrop(img);
+  } else {
+    img.addEventListener('load', () => applyPortraitCrop(img));
+  }
+});
 </script>
 </body>
 </html>
