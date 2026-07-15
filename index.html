@@ -848,72 +848,8 @@
       <h2 class="sh" id="vl-h">Unser <span class="ac">Vereinsleben</span></h2>
       <div class="sh-line" style="margin:14px auto 0"></div>
     </div>
-    <div id="vl-grid" style="display:flex;flex-direction:column;gap:24px">
-
-      <!-- NEUESTE KARTE: Königs-Hegefischen -->
-      <article class="vl-card card-hover rv d1">
-        <img src="Koenigsangeln2026-1.jpg"
-             alt="Königs-Hegefischen am Erlensee"
-             style="width:100%;height:auto;display:block">
-        <div class="vl-card-body">
-          <p class="vl-date">14.06.2026</p>
-          <h3>Sonne, Grillen &amp; Tradition: Unser Königs-Hegefischen!</h3>
-          <p>Was für ein geniales Wochenende liegt hinter uns! Bei absolutem Topwetter haben wir am Erlensee unser traditionelles Königs-Hegefischen durchgeführt.</p>
-          <h4>Jugend aktiv &amp; ein fleißiger Vorstand</h4>
-          <p>Besonders cool: Drei unserer Jugendlichen waren das ganze Wochenende über mit vollem Eifer dabei – starke Leistung! 👏</p>
-          <p>Im Rahmen der Gewässerhege gab es natürlich auch ein paar Highlights: Den schwersten Fisch durfte dieses Mal unser 1. Vorstand an Land ziehen.</p>
-          <h4>📸 Das geheime Foto-Highlight: Jürgen und sein Rotauge!</h4>
-          <p>Bisher hat es noch keiner gesehen, aber wir wollen es euch auf keinen Fall vorenthalten – dieses Bild ist der absolute Aufheiterer der Woche! Sein stolzes Rotauge und die sagenumwobene Portion von 7 Maiskörnern. Ein echtes Unikat! 😂</p>
-          <img src="Koenigsangeln2026-2.jpg"
-               alt="Jürgen mit seinem Rotauge und 7 Maiskörnern"
-               style="width:100%;height:auto;display:block;border-radius:8px;margin:12px 0">
-          <h4>Top organisiert: Danke, Holger! 🥩🍔🔥</h4>
-          <p>Dass das ganze Wochenende so reibungslos ablief, haben wir vor allem unserem Sportwart Holger zu verdanken. Er hat organisatorisch im Vorfeld alles perfekt vorbereitet – ein riesiges Dankeschön!</p>
-          <p>Nach diesen tollen Tagen blicken wir in lauter zufriedene Gesichter. Danke an alle, die dabei waren und dieses Wochenende so unvergesslich gemacht haben!</p>
-          <div style="display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px">
-            <img src="Koenigsangeln2026-3.jpg"
-                 alt="Königs-Hegefischen Impression"
-                 style="width:100%;height:auto;display:block;border-radius:8px">
-            <img src="Koenigsangeln2026-4.jpg"
-                 alt="Königs-Hegefischen Impression"
-                 style="width:100%;height:auto;display:block;border-radius:8px">
-          </div>
-        </div>
-      </article>
-
-      <article class="vl-card card-hover rv d2">
-        <img src="12.Muttertag Event.jpg"
-             alt="Muttertag Event am See"
-             style="width:100%;height:auto;display:block">
-        <div class="vl-card-body">
-          <p class="vl-date">10.05.2026</p>
-          <h3>Muttertag am See</h3>
-          <p>Ein Muttertag wie aus dem Bilderbuch! Strahlender Sonnenschein und tolle Gemeinschaft am Vereinsheim. Absolutes Highlight waren die Räucheröfen: Der Duft von frisch geräucherten Forellen lag in der Luft. Parallel dazu wurde am Grill fleißig gebrutzelt – gemeinsam schmeckt es einfach am besten!</p>
-        </div>
-      </article>
-
-      <article class="vl-card card-hover rv vl-hidden">
-        <img src="13. Fassanstich _ Grillen.jpg"
-             alt="Fassanstich und Grillen beim Saisonstart"
-             style="width:100%;height:auto;display:block">
-        <div class="vl-card-body">
-          <p class="vl-date">Saisonstart 2026</p>
-          <h3>O'zapft is am Wasser!</h3>
-          <p>Wie auf der GV versprochen, wurde das Fass angestochen. Bei kühlen Getränken und bester Stimmung haben wir die Angel- und Grillsaison 2026 gebührend eingeläutet. Es wurde gelacht, gefachsimpelt und einfach die Zeit am Ufer genossen. Ein riesiges Dankeschön an alle!</p>
-        </div>
-      </article>
-
-      <article class="vl-card card-hover rv vl-hidden">
-        <img src="14.Anangeln _ Saisonstart.jpeg"
-             alt="Anangeln und Saisoneröffnung"
-             style="width:100%;height:auto;display:block">
-        <div class="vl-card-body">
-          <p class="vl-date">26.04.2026</p>
-          <h3>Angelsaison-Eröffnung</h3>
-          <p>Die ersten Köder wurden ausgeworfen! Damit niemand hungrig warten musste, gab es eine mobile Verpflegung direkt am Platz. Frische Brötchen und warme Würstchen sorgten für die nötige Stärkung. Besonderer Dank geht hier an Holger. Petri Heil für die neue Saison!</p>
-        </div>
-      </article>
-
+    <div id="vl-latest" class="rv">
+      <div class="vl-card" style="padding:40px;text-align:center;color:#64748b;font-size:14px">⏳ Beitrag wird geladen…</div>
     </div>
     <div id="vl-expand-list" style="display:none"></div>
     <div class="news-more rv" style="margin-top:24px">
@@ -1263,10 +1199,75 @@ function toggleNews() {
   buildExpandList('.news-hidden', 'news-expand-list', '.news-badge', 'news-toggle-btn', 'Weitere News laden', 'Weniger anzeigen ↑');
 }
 
+// ── Vereinsleben: liest statische JSON von GitHub Pages ──────
+var _vlArticles = [];
+
+async function loadLatestVL() {
+  try {
+    const resp  = await fetch('vereinsleben/index.json?t=' + Date.now());
+    const index = await resp.json();
+    if (!index || !index.length) return;
+    _vlArticles = index.slice(1);
+    await renderVLArticle(index[0], document.getElementById('vl-latest'));
+  } catch(e) {
+    document.getElementById('vl-latest').innerHTML =
+      '<div class="vl-card" style="padding:32px;text-align:center;color:#94a3b8;font-size:13px">Noch kein Inhalt veröffentlicht.</div>';
+  }
+}
+
+async function renderVLArticle(item, container) {
+  container.innerHTML = '<div class="vl-card" style="padding:40px;text-align:center;color:#64748b;font-size:14px">⏳ Wird geladen…</div>';
+  try {
+    const resp = await fetch('vereinsleben/' + item.index + '.json?t=' + Date.now());
+    const data = await resp.json();
+    const m     = (data.title||'').match(/^(\d{2}\.\d{2}\.\d{4})\s+(.+)$/);
+    const datum = m ? m[1] : (data.title||'').split(/\s+/)[0];
+    const titel = m ? m[2] : (data.title||'');
+    container.innerHTML =
+      '<article class="vl-card card-hover vis"><div class="vl-card-body">' +
+      '<p class="vl-date">' + datum + '</p><h3>' + titel + '</h3>' +
+      (data.html || '') + '</div></article>';
+    container.querySelectorAll('img').forEach(function(img) {
+      if (img.complete && img.naturalWidth > 0) applyPortraitCrop(img);
+      else img.addEventListener('load', function(){ applyPortraitCrop(img); });
+    });
+  } catch(e) {
+    container.innerHTML = '<div class="vl-card" style="padding:32px;text-align:center;color:#94a3b8">Fehler beim Laden.</div>';
+  }
+}
+
 // Vereinsleben toggle
 function toggleVL() {
-  buildExpandList('.vl-hidden', 'vl-expand-list', '.vl-date', 'vl-toggle-btn', 'Weitere Beiträge laden', 'Weniger anzeigen ↑');
+  const list = document.getElementById('vl-expand-list');
+  const btn  = document.getElementById('vl-toggle-btn');
+  if (list.dataset.open === '1') {
+    list.innerHTML = ''; list.dataset.open = '0';
+    list.style.display = 'none'; btn.textContent = 'Weitere Beiträge laden'; return;
+  }
+  if (!_vlArticles.length) return;
+  const ul = document.createElement('ul'); ul.className = 'expand-list';
+  _vlArticles.forEach(function(item) {
+    const m     = (item.title||'').match(/^(\d{2}\.\d{2}\.\d{4})\s+(.+)$/);
+    const datum = m ? m[1] : (item.title||'').split(/\s+/)[0];
+    const titel = m ? m[2] : item.title;
+    const li = document.createElement('li'); li.className = 'expand-item';
+    const summary = document.createElement('div'); summary.className = 'expand-summary';
+    summary.innerHTML = '<span class="expand-sum-date">'+datum+'</span><span class="expand-sum-title">'+titel+'</span><span class="expand-arrow">›</span>';
+    const body = document.createElement('div'); body.className = 'expand-body';
+    var loaded = false;
+    summary.addEventListener('click', async function() {
+      const isOpen = summary.classList.contains('open');
+      ul.querySelectorAll('.expand-summary').forEach(function(s){ s.classList.remove('open'); s.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { summary.classList.add('open'); body.classList.add('open');
+        if (!loaded) { await renderVLArticle(item, body); loaded = true; } }
+    });
+    li.appendChild(summary); li.appendChild(body); ul.appendChild(li);
+  });
+  list.appendChild(ul); list.style.display='block';
+  list.dataset.open='1'; btn.textContent='Weniger anzeigen ↑';
 }
+
+loadLatestVL();
 // Hochkant-Fotos → 1:1 zentriert
 function applyPortraitCrop(img) {
   if (img.naturalHeight > img.naturalWidth) {
