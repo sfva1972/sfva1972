@@ -150,6 +150,10 @@
     .vl-card-body h3{font-family:"Outfit",sans-serif;font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:10px}
     .vl-card-body p{font-size:13.5px;color:var(--mid);line-height:1.7}
     .vl-card-body h4{font-family:"Outfit",sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin:14px 0 6px}
+    .vl-card-body img{max-height:320px;width:100%;object-fit:cover;object-position:center;border-radius:8px;display:block;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .vl-photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+    .vl-photo-card{border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+    .vl-photo-card img{width:100%!important;height:180px!important;object-fit:cover!important;object-position:center!important;border-radius:0!important;display:block!important;margin:0!important;box-shadow:none!important}
 
     /* ── GLOW BUTTON ── */
     @keyframes glow-pulse{
@@ -1231,6 +1235,7 @@ async function renderVLArticle(item, container) {
       if (img.complete && img.naturalWidth > 0) applyPortraitCrop(img);
       else img.addEventListener('load', function(){ applyPortraitCrop(img); });
     });
+    groupVLImages(container);
   } catch(e) {
     container.innerHTML = '<div class="vl-card" style="padding:32px;text-align:center;color:#94a3b8">Fehler beim Laden.</div>';
   }
@@ -1268,6 +1273,32 @@ function toggleVL() {
 }
 
 loadLatestVL();
+// Bilder im Vereinsleben in kompaktes Foto-Grid umpacken
+function groupVLImages(container) {
+  const body = container.querySelector('.vl-card-body');
+  if (!body) return;
+  const imgs = Array.from(body.querySelectorAll('img'));
+  if (!imgs.length) return;
+
+  const grid = document.createElement('div');
+  grid.className = 'vl-photo-grid';
+
+  imgs.forEach(function(img) {
+    // Leere Wrapper-Divs entfernen
+    const parent = img.parentElement;
+    parent.removeChild(img);
+    if (parent !== body && parent.tagName === 'DIV' && parent.children.length === 0 && !parent.textContent.trim()) {
+      parent.parentElement && parent.parentElement.removeChild(parent);
+    }
+    const card = document.createElement('div');
+    card.className = 'vl-photo-card';
+    card.appendChild(img);
+    grid.appendChild(card);
+  });
+
+  body.appendChild(grid);
+}
+
 // Hochkant-Fotos → 1:1 zentriert
 function applyPortraitCrop(img) {
   if (img.naturalHeight > img.naturalWidth) {
