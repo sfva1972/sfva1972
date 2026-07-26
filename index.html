@@ -1161,7 +1161,6 @@ async function renderNewsArticle(item, container) {
     container.innerHTML =
       '<article class="card card-hover news-card vis">' +
         '<span class="news-badge" style="background:var(--blue)">' + badge + '</span>' +
-        '<h3>' + titel + '</h3>' +
         (data.html || '') +
       '</article>';
   } catch(e) {
@@ -1180,9 +1179,8 @@ function toggleNews() {
   if (!_newsArticles.length) return;
   const ul = document.createElement('ul'); ul.className = 'expand-list';
   _newsArticles.forEach(function(item) {
-    const m     = (item.title||'').match(/^(KW\d+)\s+(.+)$/i);
-    const badge = m ? m[1] : (item.title||'').replace(/^(KW\d+).*/i,'$1');
-    const titel = m ? m[2] : (item.title||'').replace(/^KW\d+\s*/i,'') || item.title;
+    const badge = (item.title||'').match(/^(KW\d+)/i)?.[1] || item.title;
+    const titel = item.subtitle || (item.title||'');
     const li = document.createElement('li'); li.className = 'expand-item';
     const summary = document.createElement('div'); summary.className = 'expand-summary';
     summary.innerHTML =
