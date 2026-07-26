@@ -1155,9 +1155,9 @@ async function renderNewsArticle(item, container) {
   try {
     const resp = await fetch('news/' + item.index + '.json?t=' + Date.now());
     const data = await resp.json();
-    const m     = (data.title||'').match(/^(KW\s*\d+[^\s,]*),?\s*(.+)$/i);
-    const badge = m ? m[1] : (data.title||'').split(/[\s,]+/)[0];
-    const titel = m ? m[2] : (data.title||'');
+    const m     = (data.title||'').match(/^(KW\d+)\s+(.+)$/i);
+    const badge = m ? m[1] : (data.title||'').replace(/^(KW\d+).*/i,'$1');
+    const titel = m ? m[2] : (data.title||'').replace(/^KW\d+\s*/i,'') || (data.title||'');
     container.innerHTML =
       '<article class="card card-hover news-card vis">' +
         '<span class="news-badge" style="background:var(--blue)">' + badge + '</span>' +
@@ -1180,9 +1180,9 @@ function toggleNews() {
   if (!_newsArticles.length) return;
   const ul = document.createElement('ul'); ul.className = 'expand-list';
   _newsArticles.forEach(function(item) {
-    const m     = (item.title||'').match(/^(KW\s*\d+[^\s,]*),?\s*(.+)$/i);
-    const badge = m ? m[1] : (item.title||'').split(/[\s,]+/)[0];
-    const titel = m ? m[2] : item.title;
+    const m     = (item.title||'').match(/^(KW\d+)\s+(.+)$/i);
+    const badge = m ? m[1] : (item.title||'').replace(/^(KW\d+).*/i,'$1');
+    const titel = m ? m[2] : (item.title||'').replace(/^KW\d+\s*/i,'') || item.title;
     const li = document.createElement('li'); li.className = 'expand-item';
     const summary = document.createElement('div'); summary.className = 'expand-summary';
     summary.innerHTML =
@@ -1232,7 +1232,7 @@ async function renderVLArticle(item, container) {
     const data = await resp.json();
     const m     = (data.title||'').match(/^(\d{2}\.\d{2}\.\d{4})\s+(.+)$/);
     const datum = m ? m[1] : (data.title||'').split(/\s+/)[0];
-    const titel = m ? m[2] : (data.title||'');
+    const titel = m ? m[2] : (data.title||'').replace(/^KW\d+\s*/i,'') || (data.title||'');
     container.innerHTML =
       '<article class="vl-card card-hover vis"><div class="vl-card-body">' +
       '<p class="vl-date">' + datum + '</p><h3>' + titel + '</h3>' +
@@ -1260,7 +1260,7 @@ function toggleVL() {
   _vlArticles.forEach(function(item) {
     const m     = (item.title||'').match(/^(\d{2}\.\d{2}\.\d{4})\s+(.+)$/);
     const datum = m ? m[1] : (item.title||'').split(/\s+/)[0];
-    const titel = m ? m[2] : item.title;
+    const titel = m ? m[2] : (item.title||'').replace(/^KW\d+\s*/i,'') || item.title;
     const li = document.createElement('li'); li.className = 'expand-item';
     const summary = document.createElement('div'); summary.className = 'expand-summary';
     summary.innerHTML = '<span class="expand-sum-date">'+datum+'</span><span class="expand-sum-title">'+titel+'</span><span class="expand-arrow">›</span>';
