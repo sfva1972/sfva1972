@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+  <meta name="description" content="Frisch geräucherte Forellen – Verbindliche Bestellung beim Sportfischerverein Angelbachtal e.V.">
+  <title>Forellenbestellung – SFV Angelbachtal</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--blue:#0055e5;--dark:#0f172a;--mid:#334155;--light:#f8fafc;--white:#fff;--border:#e2e8f0;--r:12px;--blue-soft:#eff6ff}
+    body{font-family:"Plus Jakarta Sans",sans-serif;background:var(--light);color:var(--dark);min-height:100vh}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;width:100%;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;padding:0 32px;height:64px}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo img{width:44px;height:44px;border-radius:8px;object-fit:contain}
+    .logo strong{font-family:"Outfit",sans-serif;font-size:14px;font-weight:800;color:var(--dark)}
+    .logo span{font-size:10px;color:#64748b;letter-spacing:1px;text-transform:uppercase}
+    nav a.back{margin-left:auto;font-size:13px;color:var(--blue);text-decoration:none;font-weight:600}
+    nav a.back:hover{text-decoration:underline}
+
+    /* HERO */
+    .hero{margin-top:64px;background:linear-gradient(135deg,#0055e5,#0891b2);padding:48px 24px;text-align:center;color:#fff}
+    .hero h1{font-family:"Outfit",sans-serif;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;margin-bottom:8px}
+    .hero p{font-size:15px;opacity:.85;max-width:500px;margin:0 auto}
+
+    /* MAIN */
+    main{max-width:640px;margin:0 auto;padding:40px 16px 80px}
+
+    /* SLOTS */
+    .slots-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:12px}
+    .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:32px}
+    .slot-card{background:var(--white);border:2px solid var(--border);border-radius:var(--r);padding:16px 12px;text-align:center;transition:border-color .2s}
+    .slot-card.voll{opacity:.55;background:#f1f5f9}
+    .slot-time{font-family:"Outfit",sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:4px}
+    .slot-free{font-size:13px;color:#059669;font-weight:600}
+    .slot-free.wenig{color:#d97706}
+    .slot-free.voll{color:#dc2626}
+    .slot-loading{font-size:12px;color:#94a3b8}
+
+    /* FORM */
+    .form-card{background:var(--white);border-radius:var(--r);border:1px solid var(--border);padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    .form-card h2{font-family:"Outfit",sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:20px}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+    label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--mid)}
+    input,select{padding:12px 14px;font-family:"Plus Jakarta Sans",sans-serif;font-size:14px;background:#fff;border:1.5px solid var(--border);border-radius:var(--r);color:var(--dark);outline:none;width:100%;transition:border-color .2s}
+    input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,85,229,.1)}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:480px){.row2{grid-template-columns:1fr}.slots{grid-template-columns:1fr}}
+
+    .total-box{background:var(--blue-soft);border:1px solid #bfdbfe;border-radius:var(--r);padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin:16px 0}
+    .total-label{font-size:13px;color:#1d4ed8}
+    .total-val{font-size:1.4rem;font-weight:800;color:var(--blue)}
+    .hinweis{font-size:12px;color:#64748b;margin-bottom:16px;line-height:1.6}
+
+    .btn{display:block;width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:var(--r);font-family:"Plus Jakarta Sans",sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s}
+    .btn:hover{background:#0044cc}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+
+    .result{display:none;text-align:center;padding:40px 20px}
+    .result.ok .icon{font-size:48px;margin-bottom:16px}
+    .result.ok h3{font-family:"Outfit",sans-serif;font-size:1.4rem;font-weight:800;color:#059669;margin-bottom:8px}
+    .result.ok p{font-size:14px;color:var(--mid)}
+    .result.err h3{color:#dc2626;font-size:1rem;font-family:"Outfit",sans-serif;font-weight:800;margin-bottom:8px}
+
+    .info-box{background:#fff8f0;border:1.5px solid #f97316;border-radius:var(--r);padding:16px 18px;margin-bottom:24px;font-size:13px;line-height:1.7;color:var(--mid)}
+    .info-box strong{color:#c2410c;display:block;margin-bottom:4px}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <img src="SFV_Logo.png" alt="SFV Logo">
+    <div>
+      <strong>SFV Angelbachtal</strong><br>
+      <span>e.V. · seit 1972</span>
+    </div>
+  </a>
+  <a href="index.html" class="back">← Zurück zur Webseite</a>
+</nav>
+
+<div class="hero">
+  <h1>🐟 Frisch geräucherte Forellen</h1>
+  <p>Verbindliche Bestellung für Samstag, 26. September 2026<br>SFV-Stand · Parkplatz TSV Angelbachtal, Eichtersheim</p>
+</div>
+
+<main>
+
+  <div class="info-box">
+    <strong>⚠️ Hinweise zur Bestellung</strong>
+    Bestellschluss: <strong>Dienstag, 22. September 2026</strong><br>
+    Bezahlung bei Abholung · 5 € pro Forelle · max. 10 Forellen pro Bestellung<br>
+    Abholung: Sportplatzstraße 11, 74918 Angelbachtal (Eichtersheim)
+  </div>
+
+  <p class="slots-title">Verfügbare Zeitslots</p>
+  <div class="slots" id="slots">
+    <div class="slot-card" id="slot-1130">
+      <div class="slot-time">11:30 Uhr</div>
+      <div class="slot-loading">Lädt…</div>
+    </div>
+    <div class="slot-card" id="slot-1400">
+      <div class="slot-time">14:00 Uhr</div>
+      <div class="slot-loading">Lädt…</div>
+    </div>
+    <div class="slot-card" id="slot-1630">
+      <div class="slot-time">16:30 Uhr</div>
+      <div class="slot-loading">Lädt…</div>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <div id="form-wrap">
+      <h2>Jetzt verbindlich bestellen</h2>
+      <form id="bestell-form">
+        <div class="row2">
+          <div class="field">
+            <label for="vorname">Vorname</label>
+            <input type="text" id="vorname" required placeholder="Max">
+          </div>
+          <div class="field">
+            <label for="nachname">Nachname</label>
+            <input type="text" id="nachname" required placeholder="Mustermann">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="telefon">Telefon</label>
+            <input type="tel" id="telefon" required placeholder="0170 …">
+          </div>
+          <div class="field">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" required placeholder="max@beispiel.de">
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="anzahl">Anzahl Forellen</label>
+            <select id="anzahl" onchange="berechne()">
+              <option value="">– wählen –</option>
+              <option value="1">1 Forelle</option>
+              <option value="2">2 Forellen</option>
+              <option value="3">3 Forellen</option>
+              <option value="4">4 Forellen</option>
+              <option value="5">5 Forellen</option>
+              <option value="6">6 Forellen</option>
+              <option value="7">7 Forellen</option>
+              <option value="8">8 Forellen</option>
+              <option value="9">9 Forellen</option>
+              <option value="10">10 Forellen</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="slot">Abholzeit</label>
+            <select id="slot">
+              <option value="">– wählen –</option>
+              <option value="11:30 Uhr">11:30 Uhr</option>
+              <option value="14:00 Uhr">14:00 Uhr</option>
+              <option value="16:30 Uhr">16:30 Uhr</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="total-box">
+          <span class="total-label">Gesamtpreis (5 € / Forelle)</span>
+          <span class="total-val" id="total">– €</span>
+        </div>
+
+        <p class="hinweis">Mit dem Absenden bestätige ich, dass meine Bestellung verbindlich ist und ich den Betrag bei Abholung in bar bezahle.</p>
+
+        <div id="form-error" style="display:none;color:#dc2626;font-size:13px;margin-bottom:12px;padding:10px 14px;background:#fef2f2;border-radius:8px"></div>
+
+        <button type="submit" class="btn" id="submit-btn">Verbindlich bestellen →</button>
+      </form>
+    </div>
+
+    <div class="result ok" id="result-ok">
+      <div class="icon">🎣</div>
+      <h3>Bestellung eingegangen!</h3>
+      <p>Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.<br>
+      Wir freuen uns auf euch am <strong>26. September 2026</strong>.<br><br>
+      <em>Petri Heil – Euer SFV Angelbachtal</em></p>
+    </div>
+
+    <div class="result err" id="result-err">
+      <h3 id="err-msg">Fehler beim Senden.</h3>
+      <p style="font-size:13px;color:var(--mid);margin-top:8px">Bitte versuche es nochmal oder ruf uns an: <a href="tel:+491707617350" style="color:var(--blue)">0170 761 7350</a></p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw0PAe1_ACQ0VXJR7JUwH6P94VKNVk0Pg1eb3ej8yGyAeAO52_Y2fzwOR_c2Km9OYA/exec';
+var verfuegbar = {};
+
+// Slots laden
+async function ladeSlots() {
+  try {
+    var resp = await fetch(SCRIPT_URL + '?action=status');
+    var data = await resp.json();
+    verfuegbar = data;
+    aktualisiereSlots(data);
+  } catch(e) {
+    document.querySelectorAll('.slot-loading').forEach(function(el){
+      el.textContent = 'Nicht verfügbar';
+    });
+  }
+}
+
+function aktualisiereSlots(data) {
+  var slotMap = {
+    '11:30 Uhr': 'slot-1130',
+    '14:00 Uhr': 'slot-1400',
+    '16:30 Uhr': 'slot-1630'
+  };
+  Object.keys(slotMap).forEach(function(slot) {
+    var card = document.getElementById(slotMap[slot]);
+    var info = data[slot] || { frei: 0 };
+    var frei = info.frei;
+    var klasse = frei === 0 ? 'voll' : frei <= 20 ? 'wenig' : '';
+    var text   = frei === 0 ? 'Ausgebucht' : frei + ' Plätze frei';
+    card.querySelector('.slot-loading') && card.querySelector('.slot-loading').remove();
+    var existing = card.querySelector('.slot-free');
+    if (!existing) {
+      var div = document.createElement('div');
+      div.className = 'slot-free ' + klasse;
+      div.textContent = text;
+      card.appendChild(div);
+    } else {
+      existing.className = 'slot-free ' + klasse;
+      existing.textContent = text;
+    }
+    if (frei === 0) {
+      card.classList.add('voll');
+      // Slot aus Dropdown entfernen
+      var opt = document.querySelector('#slot option[value="' + slot + '"]');
+      if (opt) opt.disabled = true;
+    }
+  });
+}
+
+function berechne() {
+  var n = parseInt(document.getElementById('anzahl').value) || 0;
+  document.getElementById('total').textContent = n ? n * 5 + ' €' : '– €';
+}
+
+// Formular absenden
+document.getElementById('bestell-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('submit-btn');
+  var errBox = document.getElementById('form-error');
+  errBox.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Wird gesendet…';
+
+  var payload = {
+    vorname:  document.getElementById('vorname').value.trim(),
+    nachname: document.getElementById('nachname').value.trim(),
+    telefon:  document.getElementById('telefon').value.trim(),
+    email:    document.getElementById('email').value.trim(),
+    anzahl:   document.getElementById('anzahl').value,
+    slot:     document.getElementById('slot').value
+  };
+
+  if (!payload.anzahl || !payload.slot) {
+    errBox.textContent = 'Bitte Anzahl und Abholzeit wählen.';
+    errBox.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Verbindlich bestellen →';
+    return;
+  }
+
+  try {
+    var resp = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+    var data = await resp.json();
+    if (data.ok) {
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('result-ok').style.display = 'block';
+      ladeSlots();
+    } else {
+      errBox.textContent = data.error || 'Fehler beim Senden.';
+      errBox.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Verbindlich bestellen →';
+    }
+  } catch(err) {
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('result-err').style.display = 'block';
+    document.getElementById('err-msg').textContent = 'Verbindungsfehler.';
+  }
+});
+
+ladeSlots();
+</script>
+</body>
+</html>
