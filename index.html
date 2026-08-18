@@ -42,7 +42,7 @@
     .btn-login-note{font-size:10px;color:#94a3b8;margin-left:-4px}
 
     /* ── HERO ── */
-    .hero{height:72vh;min-height:520px;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;margin-top:0}
+    .hero{height:72vh;min-height:520px;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;margin-top:68px}
     .hero-bg{position:absolute;inset:0}
     .hero-bg{background-image:url('erlensee1.jpg');background-size:cover;background-position:center}
     .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,30,80,.55) 0%,rgba(0,15,40,.7) 100%)}
@@ -148,8 +148,28 @@
     .vl-card-body{padding:22px}
     .vl-date{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--blue);margin-bottom:8px}
     .vl-card-body h3{font-family:"Outfit",sans-serif;font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:10px}
-    .vl-card-body p{font-size:13.5px;color:var(--mid);line-height:1.7}
-    .vl-card-body h4{font-size:.9rem;font-weight:700;color:var(--dark);margin:10px 0 5px}
+    .vl-card-body p{font-size:13.5px;color:var(--mid);line-height:1.7;margin-bottom:10px}
+    .vl-card-body h4{font-family:"Outfit",sans-serif;font-size:1rem;font-weight:800;color:var(--dark);margin:14px 0 6px}
+    .vl-card-body img{max-height:320px;width:100%;object-fit:cover;object-position:center;border-radius:8px;display:block;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .vl-photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:16px}
+    .vl-photo-card{border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.12);cursor:pointer}
+    .vl-photo-card img{width:100%!important;height:180px!important;object-fit:cover!important;object-position:center!important;border-radius:0!important;display:block!important;margin:0!important;box-shadow:none!important;transition:transform .2s}
+    .vl-photo-card:hover img{transform:scale(1.03)}
+    @media(min-width:769px){.vl-photo-card img{height:360px!important}}
+    /* ── LIGHTBOX ── */
+    #vl-lightbox{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;cursor:zoom-out}
+    #vl-lightbox.open{display:flex;flex-direction:column}
+    #vl-lightbox img{max-width:100vw;max-height:90vh;object-fit:contain;display:block}
+    #vl-lightbox-close{position:fixed;top:16px;right:20px;color:#fff;font-size:36px;cursor:pointer;line-height:1;opacity:.8;z-index:10000}
+    #vl-lightbox-close:hover{opacity:1}
+    #vl-lightbox-hint{color:rgba(255,255,255,.5);font-size:12px;text-align:center;padding:8px;letter-spacing:.5px}
+
+    /* ── GLOW BUTTON ── */
+    @keyframes glow-pulse{
+      0%,100%{box-shadow:0 0 6px 2px rgba(0,85,229,.35),0 0 0 0 rgba(255,255,255,0)}
+      50%{box-shadow:0 0 18px 6px rgba(0,85,229,.55),0 0 28px 10px rgba(200,220,255,.25)}
+    }
+    .btn-glow{animation:glow-pulse 2s ease-in-out infinite}
 
     /* ── TERMINKALENDER ── */
     .termine-wrap{overflow-x:auto;border-radius:var(--r);box-shadow:0 4px 20px rgba(0,0,0,.07);border:1px solid var(--border)}
@@ -188,6 +208,29 @@
     #news-grid.multi{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
     .news-hidden{display:none}
     .news-hidden.vis{display:block}
+
+    /* ── VEREINSLEBEN COLLAPSE ── */
+    .vl-hidden{display:none}
+    .vl-hidden.shown{display:block}
+
+    /* ── EXPAND ACCORDION (News + VL) ── */
+    .expand-list{list-style:none;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:16px}
+    .expand-item{border-bottom:1px solid var(--border)}
+    .expand-item:last-child{border-bottom:none}
+    .expand-summary{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;background:#fff;transition:background .2s;user-select:none}
+    .expand-summary:hover,.expand-summary.open{background:var(--blue-soft)}
+    .expand-sum-date{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.5px;flex-shrink:0;min-width:120px}
+    .expand-sum-title{font-size:14px;font-weight:600;color:var(--dark);flex:1;line-height:1.35}
+    .expand-arrow{font-size:22px;color:var(--blue);transition:transform .3s ease;flex-shrink:0;line-height:1}
+    .expand-summary.open .expand-arrow{transform:rotate(90deg)}
+    .expand-body{display:none;background:#f8fafc;border-top:1px solid var(--border);padding:20px}
+    .expand-body.open{display:block}
+    @media(max-width:768px){
+      .expand-summary{padding:12px 14px;gap:10px}
+      .expand-sum-date{min-width:80px;font-size:10px}
+      .expand-sum-title{font-size:13px}
+      .expand-body{padding:12px}
+    }
 
     /* ── REVEAL ── */
     .rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
@@ -349,6 +392,8 @@
       .form-row-2{grid-template-columns:1fr !important}
     }
   </style>
+  <script data-goatcounter="https://sfva.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
@@ -372,7 +417,7 @@
     <li><a href="#mitgliedschaft">Mitgliedschaft</a></li>
     <li><a href="#vereinsleben">Vereinsleben</a></li>
     <li><a href="#termine">Termine</a></li>
-    <li><a href="jugend.html">Jugend</a></li>
+    <!--<li><a href="jugend.html">Jugend</a></li>-->
     <li><a href="impressum.html">Impressum</a></li>
   </ul>
   <div class="nav-right">
@@ -385,20 +430,6 @@
     <span></span>
   </button>
 </nav>
-
-<!-- ═══════════════════ FORELLENVERKAUF BANNER ═══════════════════ -->
-<a href="forellen.html" style="display:block;text-decoration:none;margin-top:64px">
-  <div style="background:#fff8f0;border-bottom:2px solid #f97316;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:background .2s" onmouseover="this.style.background='#ffedd5'" onmouseout="this.style.background='#fff8f0'">
-    <div style="display:flex;align-items:center;gap:12px">
-      <span style="font-size:22px;flex-shrink:0">🐟</span>
-      <div>
-        <p style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#c2410c;letter-spacing:-.01em">Geräucherte Forellen – Sa. 26. September 2026</p>
-        <p style="font-size:12px;color:#64748b;margin-top:1px">Jetzt verbindlich bestellen · 3 Zeitslots · je max. 100 Forellen</p>
-      </div>
-    </div>
-    <span style="font-size:12px;font-weight:700;color:#c2410c;white-space:nowrap;background:#fff;border:1.5px solid #f97316;padding:7px 14px;border-radius:8px;flex-shrink:0">Bestellen →</span>
-  </div>
-</a>
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <header class="hero" role="banner">
@@ -462,18 +493,21 @@
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
           <div style="text-align:center">
             <img src="2. - 1. Vorsitzender Michael Fischer.jpg" alt="Michael Fischer"
+                 class="no-crop"
                  style="width:100%;height:auto;border-radius:10px;display:block">
             <p style="font-size:12px;font-weight:700;color:var(--dark);margin-top:7px">Michael Fischer</p>
             <p style="font-size:10px;color:var(--mid)">1. Vorsitzender</p>
           </div>
           <div style="text-align:center">
             <img src="3. -2. Vorsitzender Sven Nagel.jpg" alt="Sven Nagel"
+                 class="no-crop"
                  style="width:100%;height:auto;border-radius:10px;display:block">
             <p style="font-size:12px;font-weight:700;color:var(--dark);margin-top:7px">Sven Nagel</p>
             <p style="font-size:10px;color:var(--mid)">2. Vorsitzender</p>
           </div>
           <div style="text-align:center">
             <img src="4. -3. Vorsitzender  Hans-Josef Lakatos.jpg" alt="Hans-Josef Lakatos"
+                 class="no-crop"
                  style="width:100%;height:auto;border-radius:10px;display:block">
             <p style="font-size:12px;font-weight:700;color:var(--dark);margin-top:7px">Hans-Josef Lakatos</p>
             <p style="font-size:10px;color:var(--mid)">3. Vorsitzender</p>
@@ -511,7 +545,7 @@
       <div class="gewaesser-grid rv d2">
         <div class="gewaesser-card">
           <div class="gc-head">
-            <h3>🏞️ Erlensee</h3>
+            <h3>Erlensee</h3>
             <p>Das Herzstück des Vereins</p>
           </div>
           <div class="gc-body">
@@ -519,11 +553,24 @@
                  alt="Erlensee"
                  style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;margin-bottom:20px">
             <p>Im Mittelpunkt unseres Vereinslebens steht der Erlensee – ein kleiner, aber sehr gepflegter See, der in den 1980er-Jahren von unseren Gründungsmitgliedern geschaffen wurde. Er überzeugt durch seine ruhige Lage, angenehme Atmosphäre und gute Erreichbarkeit. Nicht nur zum Angeln, sondern auch als Ort der Erholung ist er für viele in Angelbachtal ein beliebtes Ziel.</p>
+            <div style="margin-top:16px;background:#fff8f0;border:1.5px solid #f97316;border-radius:10px;padding:16px 18px">
+              <p style="font-size:13px;font-weight:800;color:#c2410c;margin-bottom:10px">⚠️ WICHTIGE HINWEISE: Nutzungs- und Zugangsregeln für den Erlensee</p>
+              <p style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px">1. Striktes Zufahrts- und Parkverbot</p>
+              <p style="font-size:12.5px;color:var(--mid);margin-bottom:4px">• <strong>Kein öffentlicher Zugang:</strong> Die Zufahrt sowie das Parken sind ausschließlich Vereinsmitgliedern und angemeldeten Besuchern gestattet.</p>
+              <p style="font-size:12.5px;color:var(--mid);margin-bottom:4px">• <strong>Zufahrtsverbot:</strong> Für betriebsfremde Personen gilt ein striktes Zufahrtsverbot. Unbefugt abgestellte Fahrzeuge werden konsequent zur Anzeige gebracht.</p>
+              <p style="font-size:12.5px;color:var(--mid);margin-bottom:12px">• <strong>Anmeldepflicht:</strong> Jeder geplante Besuch muss im Vorfeld rechtzeitig beim Vorstand angemeldet werden.</p>
+              <p style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px">2. Absolutes Badeverbot für Menschen</p>
+              <p style="font-size:12.5px;color:var(--mid);margin-bottom:4px">Der Erlensee ist ein reines Angel- und Naturschutzgewässer.</p>
+              <p style="font-size:12.5px;color:var(--mid);margin-bottom:12px">• Das Baden, Schwimmen sowie das Befahren mit Booten oder Wasserfahrzeugen ist strengstens untersagt. Zuwiderhandlungen werden mit Platzverweisen sowie rechtlichen Schritten geahndet.</p>
+              <p style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px">3. Absolutes Badeverbot für Hunde</p>
+              <p style="font-size:12.5px;color:var(--mid);margin-bottom:4px">• Es ist strikt untersagt, Hunde im Wasser schwimmen, spielen oder abkühlen zu lassen.</p>
+              <p style="font-size:12.5px;color:var(--mid)">• Hundehalter werden aufgefordert, ihre Tiere im gesamten Vereinsgelände unter Kontrolle zu halten.</p>
+            </div>
           </div>
         </div>
         <div class="gewaesser-card">
           <div class="gc-head" style="background:linear-gradient(135deg,#0891b2,#0e7490)">
-            <h3>🌊 Waldangelbach</h3>
+            <h3>Waldangelbach</h3>
             <p>Für Abenteurer mit Köpfchen</p>
           </div>
           <div class="gc-body">
@@ -544,7 +591,6 @@
              alt="Zwei Gewässer – Erlensee und Waldangelbach"
              style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
         <div class="hl-inner">
-          <div class="hl-icon">🏞️</div>
           <p class="hl-title">Zwei Gewässer</p>
           <p class="hl-desc">Erlensee &amp; Waldangelbach – für jeden Angelstil das Richtige</p>
         </div>
@@ -554,7 +600,6 @@
              alt="Vereinsheim und Grillhütte"
              style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
         <div class="hl-inner">
-          <div class="hl-icon">🏡</div>
           <p class="hl-title">Vereinsheim &amp; Grillhütte</p>
           <p class="hl-desc">Eigenes Vereinsheim mit Grillhütte und Räucherofen zur gemeinschaftlichen Nutzung</p>
         </div>
@@ -564,7 +609,6 @@
              alt="Gepflegte Anlage am Erlensee"
              style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
         <div class="hl-inner">
-          <div class="hl-icon">🌿</div>
           <p class="hl-title">Gepflegte Anlage</p>
           <p class="hl-desc">Gepflegte Anlage mit Erholungscharakter – mehr als nur Angeln</p>
         </div>
@@ -611,73 +655,12 @@
       <h2 class="sh" id="news-h">News &amp; <span class="ac">Berichte</span></h2>
       <div class="sh-line" style="margin:14px auto 0"></div>
     </div>
-    <div class="grid-auto" id="news-grid">
-
-      <!-- NEWS 1 -->
-      <article class="card card-hover news-card rv d1" aria-label="Frühlingserwachen am Erlensee">
-        <img src="kaulquappen.jpeg"
-             alt="Kaulquappen"
-             style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin-bottom:16px">
-        <span class="news-badge green">Natur &amp; Verein</span>
-        <h3>Frühlingserwachen am Erlensee: Nachwuchs im Wasser und frischer Wind im Vorstand</h3>
-        <p>Am Erlensee herrscht aktuell reges Treiben! Während die Natur erwacht, gibt es auch aus dem Vereinsleben wichtige Neuigkeiten zu berichten.</p>
-        <h4>Naturschauspiel am Ufer</h4>
-        <p>Die Erdkröten haben unseren See zur Fortpflanzung aufgesucht. In den Flachwasserzonen flitzen bereits unzählige Kaulquappen in dichten Schwärmen durch das Wasser – ein hervorragendes Zeichen für die hohe Wasserqualität und das ökologische Gleichgewicht unseres Gewässers.</p>
-        <p><strong>Bitte beachten:</strong> Achtet beim Betreten der Uferbereiche besonders auf eure Tritte, um die kleinen Wanderer nicht zu gefährden!</p>
-        <h4>Rückblick zur Generalversammlung</h4>
-        <p>Am 20. April fand die diesjährige Generalversammlung des Sportfischervereins statt. Ein zentraler Punkt der Tagesordnung war die Neuwahl des Vorstands.</p>
-        <ul class="news-list" aria-label="Neuer Vorstand">
-          <li><strong>1. Vorsitzender:</strong> Michael Fischer</li>
-          <li><strong>2. Vorsitzender / Gewässerwart:</strong> Sven Nagel</li>
-          <li><strong>3. Vorsitzender / Kassier:</strong> Hans Josef Lakatos</li>
-          <li><strong>Schriftführerin:</strong> Lenka Fischer</li>
-          <li><strong>Gerätewart:</strong> Dennis Wachter</li>
-          <li><strong>Sportwart:</strong> Holger Nagel</li>
-          <li><strong>Protokollführer:</strong> Thomas Kirschenlohr</li>
-        </ul>
-        <p style="margin-top:12px">Wir freuen uns, mit diesem engagierten Team in die neue Saison zu starten. Ein herzliches Dankeschön gilt allen Mitgliedern für das entgegengebrachte Vertrauen und die rege Teilnahme. Auf ein erfolgreiches gemeinsames Jahr am Erlensee – voller lebendiger Vielfalt im Wasser und in unserer Gemeinschaft!</p>
-      </article>
-
-      <!-- NEWS 2 -->
-      <article class="card card-hover news-card news-hidden" aria-label="Saisonstart 2026">
-        <img src="14.Anangeln _ Saisonstart.jpeg"
-             alt="Anangeln Saisonstart 2026"
-             style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;margin-bottom:20px">
-        <span class="news-badge" style="background:#0066ff">26. April 2026</span>
-        <h3>Petri Heil am Erlensee: Angelsaison erfolgreich eröffnet!</h3>
-        <p>Am 26. April 2026 herrschte am Erlensee wieder reges Treiben. Pünktlich um 07:30 Uhr fanden sich mehr als 20 Vereinsmitglieder des SFV Angelbachtal am Erlensee ein, um gemeinsam die diesjährige Angelsaison zu beginnen. Schon früh am Morgen lag eine erwartungsvolle Stimmung in der Luft, und die Vorfreude auf einen gelungenen Saisonstart war deutlich spürbar.</p>
-
-        <p>Bei strahlendem Wetter und ausgelassener Atmosphäre machten sich die Angler ans Werk: Die ersten Köder wurden ins Wasser ausgeworfen, und jeder hoffte auf einen guten Fang. Damit niemand hungrig am Ufer warten musste, kümmerte sich eine mobile Verpflegung um das leibliche Wohl der Teilnehmer. Frische Brötchen und warme Würstchen wurden direkt am Platz angeboten, sodass für ausreichend Stärkung gesorgt war und die Gemeinschaft zusätzlich gefördert wurde.</p>
-        <p>Hier geht ein besonderer Dank an Holger. Zum Abschluss wünschen wir allen Anglern eine erfolgreiche Saison und stets einen guten Fang!</p>
-        <p style="font-weight:700;color:var(--blue);margin-top:14px">Petri Heil! 🎣</p>
-      </article>
-
-      <!-- NEWS 3 -->
-      <article class="card card-hover news-card news-hidden" aria-label="Muttertag am See">
-        <img src="12.Muttertag Event.jpg"
-             alt="Muttertag am Vereinsheim"
-             style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;margin-bottom:20px">
-        <span class="news-badge" style="background:#0066ff">10. Mai 2026</span>
-        <h3>Ein Muttertag wie aus dem Bilderbuch! ☀️🐟</h3>
-        <p>Was für ein Tag! Am vergangenen Sonntag kam am Vereinsheim des SFVA alles zusammen: Strahlender Sonnenschein, beste Laune und eine tolle Gemeinschaft.</p>
-        <h4>Räucher-Action &amp; Grill-Genuss</h4>
-        <p>Ein absolutes Highlight waren unsere Räucheröfen. Der Duft von frisch geräucherten Forellen lag in der Luft und hat mal wieder gezeigt, dass Selbstgefangenes am besten schmeckt, wenn man es gemeinsam zubereitet. Parallel dazu wurde am Grill fleißig gebrutzelt – so lässt es sich leben!</p>
-      </article>
-
-      <!-- NEWS 4 -->
-      <article class="card card-hover news-card news-hidden" aria-label="Saisonstart Fass">
-        <img src="13. Fassanstich _ Grillen.jpg"
-             alt="Fassanstich und Grillen"
-             style="width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;margin-bottom:20px">
-        <span class="news-badge" style="background:#7c3aed">Saisonstart</span>
-        <h3>O'zapft is am Wasser! 🍺</h3>
-        <p>Wie auf der GV versprochen, wurde das Fass angestochen. Bei kühlen Getränken und bester Stimmung haben wir die Angel- und Grillsaison 2026 gebührend eingeläutet. Es wurde gelacht, gefachsimpelt und einfach die Zeit am Ufer genossen.</p>
-        <p>Ein riesiges Dankeschön an alle, die dabei waren und diesen Tag so besonders gemacht haben. Genau das macht unser Vereinsleben aus!</p>
-      </article>
-
+    <div id="news-latest" class="rv">
+      <div class="card news-card" style="padding:32px;text-align:center;color:#64748b;font-size:14px">⏳ Wird geladen…</div>
     </div>
+    <div id="news-expand-list" style="display:none"></div>
     <div class="news-more rv">
-      <button class="btn btn-outline" id="news-toggle-btn" onclick="toggleNews()">Weitere News laden</button>
+      <button class="btn btn-outline btn-glow" id="news-toggle-btn" onclick="toggleNews()">Weitere News laden</button>
     </div>
   </div>
 </section>
@@ -798,41 +781,12 @@
       <h2 class="sh" id="vl-h">Unser <span class="ac">Vereinsleben</span></h2>
       <div class="sh-line" style="margin:14px auto 0"></div>
     </div>
-    <div class="grid-3">
-
-      <article class="vl-card card-hover rv d1">
-        <img src="12.Muttertag Event.jpg"
-             alt="Muttertag Event am See"
-             style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
-        <div class="vl-card-body">
-          <p class="vl-date">10.05.2026</p>
-          <h3>Muttertag am See</h3>
-          <p>Ein Muttertag wie aus dem Bilderbuch! Strahlender Sonnenschein und tolle Gemeinschaft am Vereinsheim. Absolutes Highlight waren die Räucheröfen: Der Duft von frisch geräucherten Forellen lag in der Luft. Parallel dazu wurde am Grill fleißig gebrutzelt – gemeinsam schmeckt es einfach am besten!</p>
-        </div>
-      </article>
-
-      <article class="vl-card card-hover rv d2">
-        <img src="13. Fassanstich _ Grillen.jpg"
-             alt="Fassanstich und Grillen beim Saisonstart"
-             style="width:100%;aspect-ratio:9/16;object-fit:cover;display:block">
-        <div class="vl-card-body">
-          <p class="vl-date">Saisonstart 2026</p>
-          <h3>O'zapft is am Wasser!</h3>
-          <p>Wie auf der GV versprochen, wurde das Fass angestochen. Bei kühlen Getränken und bester Stimmung haben wir die Angel- und Grillsaison 2026 gebührend eingeläutet. Es wurde gelacht, gefachsimpelt und einfach die Zeit am Ufer genossen. Ein riesiges Dankeschön an alle!</p>
-        </div>
-      </article>
-
-      <article class="vl-card card-hover rv d3">
-        <img src="14.Anangeln _ Saisonstart.jpeg"
-             alt="Anangeln und Saisoneröffnung"
-             style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block">
-        <div class="vl-card-body">
-          <p class="vl-date">26.04.2026</p>
-          <h3>Angelsaison-Eröffnung</h3>
-          <p>Die ersten Köder wurden ausgeworfen! Damit niemand hungrig warten musste, gab es eine mobile Verpflegung direkt am Platz. Frische Brötchen und warme Würstchen sorgten für die nötige Stärkung. Besonderer Dank geht hier an Holger. Petri Heil für die neue Saison!</p>
-        </div>
-      </article>
-
+    <div id="vl-latest" class="rv">
+      <div class="vl-card" style="padding:40px;text-align:center;color:#64748b;font-size:14px">⏳ Beitrag wird geladen…</div>
+    </div>
+    <div id="vl-expand-list" style="display:none"></div>
+    <div class="news-more rv" style="margin-top:24px">
+      <button class="btn btn-outline btn-glow" id="vl-toggle-btn" onclick="toggleVL()">Weitere Beiträge laden</button>
     </div>
   </div>
 </section>
@@ -846,7 +800,7 @@
       <div class="sh-line" style="margin:14px auto 0"></div>
     </div>
     <div style="text-align:left;margin-bottom:12px">
-      <button onclick="downloadICS()" class="btn btn-outline" style="font-size:12px">
+      <button onclick="downloadICS()" class="btn btn-outline btn-glow" style="font-size:12px">
         📅 Alle Termine ins Telefon importieren (.ics) <br>--> mit Kalender App öffnen
       </button>
     </div>
@@ -928,7 +882,7 @@
           <li><a href="#mitgliedschaft">Mitgliedschaft</a></li>
           <li><a href="#vereinsleben">Vereinsleben</a></li>
           <li><a href="#termine">Termine</a></li>
-          <li><a href="jugend.html">Jugend</a></li>
+          <!--<li><a href="jugend.html">Jugend</a></li>-->
         </ul>
       </div>
       <div>
@@ -953,6 +907,13 @@
     </div>
   </div>
 </footer>
+
+<!-- ── LIGHTBOX ── -->
+<div id="vl-lightbox" onclick="closeLightbox()">
+  <span id="vl-lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="vl-lightbox-img" src="" alt="">
+  <p id="vl-lightbox-hint">Tippen zum Schließen</p>
+</div>
 
 <script>
 const nav = document.getElementById("nav");
@@ -1107,30 +1068,270 @@ if (mainForm) {
   });
 }
 
-// News toggle
-function toggleNews() {
-  const hidden = document.querySelectorAll('.news-hidden');
-  const btn = document.getElementById('news-toggle-btn');
-  const grid = document.getElementById('news-grid');
-  const anyShown = document.querySelector('.news-hidden.shown');
-  hidden.forEach(el => {
-    if (!anyShown) {
-      el.style.display = 'block';
-      el.classList.add('shown');
-      setTimeout(() => el.classList.add('vis'), 50);
-    } else {
-      el.style.display = 'none';
-      el.classList.remove('shown','vis');
-    }
+// Accordion expand helper (News + Vereinsleben)
+function buildExpandList(hiddenSelector, listId, dateSelector, btnId, openLabel, closeLabel) {
+  const list = document.getElementById(listId);
+  const btn = document.getElementById(btnId);
+  const hiddenItems = document.querySelectorAll(hiddenSelector);
+
+  if (list.dataset.open === '1') {
+    list.innerHTML = '';
+    list.dataset.open = '0';
+    list.style.display = 'none';
+    btn.textContent = openLabel;
+    return;
+  }
+
+  const ul = document.createElement('ul');
+  ul.className = 'expand-list';
+
+  hiddenItems.forEach(article => {
+    const dateEl = article.querySelector(dateSelector);
+    const titleEl = article.querySelector('h3');
+    const date = dateEl ? dateEl.textContent.trim() : '';
+    const title = titleEl ? titleEl.textContent.trim() : '';
+
+    const li = document.createElement('li');
+    li.className = 'expand-item';
+
+    const summary = document.createElement('div');
+    summary.className = 'expand-summary';
+    summary.innerHTML =
+      '<span class="expand-sum-date">' + date + '</span>' +
+      '<span class="expand-sum-title">' + title + '</span>' +
+      '<span class="expand-arrow">›</span>';
+
+    const body = document.createElement('div');
+    body.className = 'expand-body';
+
+    const clone = article.cloneNode(true);
+    clone.classList.remove('news-hidden', 'vl-hidden', 'rv', 'd1', 'd2', 'd3', 'd4');
+    clone.classList.add('vis');
+    clone.style.display = 'block';
+    clone.style.margin = '0';
+    body.appendChild(clone);
+
+    summary.addEventListener('click', () => {
+      const isOpen = summary.classList.contains('open');
+      ul.querySelectorAll('.expand-summary').forEach(s => {
+        s.classList.remove('open');
+        s.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) {
+        summary.classList.add('open');
+        body.classList.add('open');
+      }
+    });
+
+    li.appendChild(summary);
+    li.appendChild(body);
+    ul.appendChild(li);
   });
-  if (!anyShown) {
-    grid.classList.add('multi');
-    btn.textContent = 'Weniger anzeigen ↑';
-  } else {
-    grid.classList.remove('multi');
-    btn.textContent = 'Weitere News laden';
+
+  list.appendChild(ul);
+  list.style.display = 'block';
+  list.dataset.open = '1';
+  btn.textContent = closeLabel;
+}
+
+// ── News: liest statische JSON von GitHub Pages ────────────────
+var _newsArticles = [];
+
+async function loadLatestNews() {
+  try {
+    const resp  = await fetch('news/index.json?t=' + Date.now());
+    const index = await resp.json();
+    if (!index || !index.length) return;
+    _newsArticles = index.slice(1);
+    await renderNewsArticle(index[0], document.getElementById('news-latest'));
+  } catch(e) {
+    document.getElementById('news-latest').innerHTML =
+      '<div class="card news-card" style="padding:32px;text-align:center;color:#94a3b8;font-size:13px">Noch kein Inhalt veröffentlicht.</div>';
   }
 }
+
+async function renderNewsArticle(item, container) {
+  container.innerHTML = '<div class="card news-card" style="padding:32px;text-align:center;color:#64748b;font-size:14px">⏳ Wird geladen…</div>';
+  try {
+    const resp = await fetch('news/' + item.index + '.json?t=' + Date.now());
+    const data = await resp.json();
+    const m     = (data.title||'').match(/^(KW\d+)\s+(.+)$/i);
+    const badge = m ? m[1] : (data.title||'').replace(/^(KW\d+).*/i,'$1');
+    const titel = m ? m[2] : (data.title||'').replace(/^KW\d+\s*/i,'') || (data.title||'');
+    container.innerHTML =
+      '<article class="card card-hover news-card vis">' +
+        '<span class="news-badge" style="background:var(--blue)">' + badge + '</span>' +
+        (data.html || '') +
+      '</article>';
+  } catch(e) {
+    container.innerHTML = '<div class="card news-card" style="padding:32px;text-align:center;color:#94a3b8">Fehler beim Laden.</div>';
+  }
+}
+
+// News toggle → Akkordeon
+function toggleNews() {
+  const list = document.getElementById('news-expand-list');
+  const btn  = document.getElementById('news-toggle-btn');
+  if (list.dataset.open === '1') {
+    list.innerHTML = ''; list.dataset.open = '0';
+    list.style.display = 'none'; btn.textContent = 'Weitere News laden'; return;
+  }
+  if (!_newsArticles.length) return;
+  const ul = document.createElement('ul'); ul.className = 'expand-list';
+  _newsArticles.forEach(function(item) {
+    const badge = (item.title||'').match(/^(KW\d+)/i)?.[1] || item.title;
+    const titel = item.subtitle || (item.title||'');
+    const li = document.createElement('li'); li.className = 'expand-item';
+    const summary = document.createElement('div'); summary.className = 'expand-summary';
+    summary.innerHTML =
+      '<span class="expand-sum-date">' + badge + '</span>' +
+      '<span class="expand-sum-title">' + titel + '</span>' +
+      '<span class="expand-arrow">›</span>';
+    const body = document.createElement('div'); body.className = 'expand-body';
+    var loaded = false;
+    summary.addEventListener('click', async function() {
+      const isOpen = summary.classList.contains('open');
+      ul.querySelectorAll('.expand-summary').forEach(function(s){
+        s.classList.remove('open'); s.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) {
+        summary.classList.add('open'); body.classList.add('open');
+        if (!loaded) { await renderNewsArticle(item, body); loaded = true; }
+      }
+    });
+    li.appendChild(summary); li.appendChild(body); ul.appendChild(li);
+  });
+  list.appendChild(ul); list.style.display = 'block';
+  list.dataset.open = '1'; btn.textContent = 'Weniger anzeigen ↑';
+}
+
+loadLatestNews();
+
+// ── Vereinsleben: liest statische JSON von GitHub Pages ──────
+var _vlArticles = [];
+
+async function loadLatestVL() {
+  try {
+    const resp  = await fetch('vereinsleben/index.json?t=' + Date.now());
+    const index = await resp.json();
+    if (!index || !index.length) return;
+    _vlArticles = index.slice(1);
+    await renderVLArticle(index[0], document.getElementById('vl-latest'));
+  } catch(e) {
+    document.getElementById('vl-latest').innerHTML =
+      '<div class="vl-card" style="padding:32px;text-align:center;color:#94a3b8;font-size:13px">Noch kein Inhalt veröffentlicht.</div>';
+  }
+}
+
+async function renderVLArticle(item, container) {
+  container.innerHTML = '<div class="vl-card" style="padding:40px;text-align:center;color:#64748b;font-size:14px">⏳ Wird geladen…</div>';
+  try {
+    const resp = await fetch('vereinsleben/' + item.index + '.json?t=' + Date.now());
+    const data = await resp.json();
+    const m     = (data.title||'').match(/^(\d{2}\.\d{2}\.\d{4})\s+(.+)$/);
+    const datum = m ? m[1] : (data.title||'').split(/\s+/)[0];
+    const titel = m ? m[2] : (data.title||'').replace(/^KW\d+\s*/i,'') || (data.title||'');
+    container.innerHTML =
+      '<article class="vl-card card-hover vis"><div class="vl-card-body">' +
+      '<p class="vl-date">' + datum + '</p><h3>' + titel + '</h3>' +
+      (data.html || '') + '</div></article>';
+    container.querySelectorAll('img').forEach(function(img) {
+      if (img.complete && img.naturalWidth > 0) applyPortraitCrop(img);
+      else img.addEventListener('load', function(){ applyPortraitCrop(img); });
+    });
+    groupVLImages(container);
+  } catch(e) {
+    container.innerHTML = '<div class="vl-card" style="padding:32px;text-align:center;color:#94a3b8">Fehler beim Laden.</div>';
+  }
+}
+
+// Vereinsleben toggle
+function toggleVL() {
+  const list = document.getElementById('vl-expand-list');
+  const btn  = document.getElementById('vl-toggle-btn');
+  if (list.dataset.open === '1') {
+    list.innerHTML = ''; list.dataset.open = '0';
+    list.style.display = 'none'; btn.textContent = 'Weitere Beiträge laden'; return;
+  }
+  if (!_vlArticles.length) return;
+  const ul = document.createElement('ul'); ul.className = 'expand-list';
+  _vlArticles.forEach(function(item) {
+    const m     = (item.title||'').match(/^(\d{2}\.\d{2}\.\d{4})\s+(.+)$/);
+    const datum = m ? m[1] : (item.title||'').split(/\s+/)[0];
+    const titel = m ? m[2] : (item.title||'').replace(/^KW\d+\s*/i,'') || item.title;
+    const li = document.createElement('li'); li.className = 'expand-item';
+    const summary = document.createElement('div'); summary.className = 'expand-summary';
+    summary.innerHTML = '<span class="expand-sum-date">'+datum+'</span><span class="expand-sum-title">'+titel+'</span><span class="expand-arrow">›</span>';
+    const body = document.createElement('div'); body.className = 'expand-body';
+    var loaded = false;
+    summary.addEventListener('click', async function() {
+      const isOpen = summary.classList.contains('open');
+      ul.querySelectorAll('.expand-summary').forEach(function(s){ s.classList.remove('open'); s.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { summary.classList.add('open'); body.classList.add('open');
+        if (!loaded) { await renderVLArticle(item, body); loaded = true; } }
+    });
+    li.appendChild(summary); li.appendChild(body); ul.appendChild(li);
+  });
+  list.appendChild(ul); list.style.display='block';
+  list.dataset.open='1'; btn.textContent='Weniger anzeigen ↑';
+}
+
+loadLatestVL();
+// Lightbox
+function openLightbox(src) {
+  document.getElementById('vl-lightbox-img').src = src;
+  document.getElementById('vl-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('vl-lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+
+// Bilder im Vereinsleben in kompaktes Foto-Grid umpacken
+function groupVLImages(container) {
+  const body = container.querySelector('.vl-card-body');
+  if (!body) return;
+  const imgs = Array.from(body.querySelectorAll('img'));
+  if (!imgs.length) return;
+
+  const grid = document.createElement('div');
+  grid.className = 'vl-photo-grid';
+
+  imgs.forEach(function(img) {
+    const parent = img.parentElement;
+    parent.removeChild(img);
+    if (parent !== body && parent.tagName === 'DIV' && parent.children.length === 0 && !parent.textContent.trim()) {
+      parent.parentElement && parent.parentElement.removeChild(parent);
+    }
+    const card = document.createElement('div');
+    card.className = 'vl-photo-card';
+    card.appendChild(img);
+    card.addEventListener('click', function(){ openLightbox(img.src); });
+    grid.appendChild(card);
+  });
+
+  body.appendChild(grid);
+}
+
+// Hochkant-Fotos → 1:1 zentriert
+function applyPortraitCrop(img) {
+  if (img.naturalHeight > img.naturalWidth) {
+    img.style.aspectRatio = '1/1';
+    img.style.objectFit = 'cover';
+    img.style.objectPosition = 'center center';
+    img.style.width = '100%';
+    img.style.display = 'block';
+  }
+}
+document.querySelectorAll('main img:not(.no-crop)').forEach(img => {
+  if (img.complete && img.naturalWidth > 0) {
+    applyPortraitCrop(img);
+  } else {
+    img.addEventListener('load', () => applyPortraitCrop(img));
+  }
+});
 </script>
 </body>
 </html>
