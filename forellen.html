@@ -223,7 +223,7 @@ function aktualisiereSlots(data) {
     var info = data[slot] || { frei: 0 };
     var frei = info.frei;
     var klasse = frei === 0 ? 'voll' : frei <= 20 ? 'wenig' : '';
-    var text   = frei === 0 ? 'Ausgebucht' : frei + ' Plätze frei';
+    var text   = frei === 0 ? 'Ausgebucht' : frei + ' Forellen frei';
     card.querySelector('.slot-loading') && card.querySelector('.slot-loading').remove();
     var existing = card.querySelector('.slot-free');
     if (!existing) {
