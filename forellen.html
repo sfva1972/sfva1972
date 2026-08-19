@@ -184,6 +184,7 @@
       <p>Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.<br>
       Wir freuen uns auf euch am <strong>26. September 2026</strong>.<br><br>
       <em>Petri Heil – Euer SFV Angelbachtal</em></p>
+      <button onclick="downloadICS()" style="margin-top:20px;padding:10px 20px;background:#0055e5;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">📅 Bestellung jetzt in meinen Kalender eintragen</button>
     </div>
 
     <div class="result err" id="result-err">
@@ -282,6 +283,7 @@ document.getElementById('bestell-form').addEventListener('submit', async functio
     });
     var data = await resp.json();
     if (data.ok) {
+      _letzteBestellung = payload;
       document.getElementById('form-wrap').style.display = 'none';
       document.getElementById('result-ok').style.display = 'block';
       ladeSlots();
@@ -297,6 +299,38 @@ document.getElementById('bestell-form').addEventListener('submit', async functio
     document.getElementById('err-msg').textContent = 'Verbindungsfehler.';
   }
 });
+
+var _letzteBestellung = {};
+
+function downloadICS() {
+  var b    = _letzteBestellung;
+  var slot = b.slot || '11:30 Uhr';
+  var h    = parseInt(slot.split(':')[0]);
+  var m    = parseInt(slot.split(':')[1]);
+  var pad  = function(n){ return String(n).padStart(2,'0'); };
+  var ics  = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//SFV Angelbachtal//Forellenbestellung//DE',
+    'BEGIN:VEVENT',
+    'DTSTART;TZID=Europe/Berlin:20260926T' + pad(h) + pad(m) + '00',
+    'DTEND;TZID=Europe/Berlin:20260926T'   + pad(h+1) + pad(m) + '00',
+    'SUMMARY:Forellenabholung \u2013 SFV Angelbachtal',
+    'DESCRIPTION:' + (b.anzahl||'') + ' Forellen \u2013 ' + ((parseInt(b.anzahl)||0)*5) + ' \u20ac \u2013 Bezahlung bei Abholung',
+    'LOCATION:SFV-Stand\\, Sportplatzstra\u00dfe 11\\, 74918 Angelbachtal (Eichtersheim)',
+    'BEGIN:VALARM',
+    'TRIGGER:-PT60M',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Erinnerung: Forellenabholung in 1 Stunde!',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\r\n');
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+  a.download = 'Forellenabholung.ics';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
 
 ladeSlots();
 </script>
