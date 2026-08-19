@@ -93,7 +93,7 @@
   <div class="info-box">
     <strong>⚠️ Hinweise zur Bestellung</strong>
     Bestellschluss: <strong>Dienstag, 22. September 2026</strong><br>
-    Bezahlung bei Abholung · 5 € pro Forelle · max. 10 Forellen pro Bestellung<br>
+    Bezahlung bei Abholung · 8 € pro Forelle · max. 10 Forellen pro Bestellung<br>
     Abholung: Sportplatzstraße 11, 74918 Angelbachtal (Eichtersheim)
   </div>
 
@@ -166,7 +166,7 @@
         </div>
 
         <div class="total-box">
-          <span class="total-label">Gesamtpreis (5 € / Forelle)</span>
+          <span class="total-label">Gesamtpreis (8 € / Forelle)</span>
           <span class="total-val" id="total">– €</span>
         </div>
 
@@ -184,7 +184,12 @@
       <p>Vielen Dank! Deine Bestellung wurde erfolgreich übermittelt.<br>
       Wir freuen uns auf euch am <strong>26. September 2026</strong>.<br><br>
       <em>Petri Heil – Euer SFV Angelbachtal</em></p>
-      <button onclick="downloadICS()" style="margin-top:20px;padding:10px 20px;background:#0055e5;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">📅 Bestellung jetzt in meinen Kalender eintragen</button>
+      <p style="margin-top:20px;font-size:13px;font-weight:600;color:var(--mid)">Termin speichern:</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px">
+        <button onclick="addToGoogle()" style="padding:10px 16px;background:#4285f4;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">📅 Google Kalender</button>
+        <button onclick="downloadICS()" style="padding:10px 16px;background:#333;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">🍎 Apple Kalender</button>
+        <button onclick="downloadICS()" style="padding:10px 16px;background:#0055e5;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">📥 Andere (.ics)</button>
+      </div>
     </div>
 
     <div class="result err" id="result-err">
@@ -302,6 +307,25 @@ document.getElementById('bestell-form').addEventListener('submit', async functio
 
 var _letzteBestellung = {};
 
+function addToGoogle() {
+  var b    = _letzteBestellung;
+  var slot = b.slot || '11:30 Uhr';
+  var h    = parseInt(slot.split(':')[0]);
+  var m    = parseInt(slot.split(':')[1]);
+  var pad  = function(n){ return String(n).padStart(2,'0'); };
+  var start = '20260926T' + pad(h) + pad(m) + '00';
+  var end   = '20260926T' + pad(h+1) + pad(m) + '00';
+  var anzahl = parseInt(b.anzahl) || 0;
+  var details = anzahl + ' Forellen – ' + (anzahl*8) + ' € – Bezahlung bei Abholung';
+  var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+    '&text=' + encodeURIComponent('Forellenabholung – SFV Angelbachtal') +
+    '&dates=' + start + '/' + end +
+    '&details=' + encodeURIComponent(details) +
+    '&location=' + encodeURIComponent('SFV-Stand, Sportplatzstraße 11, 74918 Angelbachtal') +
+    '&ctz=Europe/Berlin';
+  window.open(url, '_blank');
+}
+
 function downloadICS() {
   var b    = _letzteBestellung;
   var slot = b.slot || '11:30 Uhr';
@@ -316,7 +340,7 @@ function downloadICS() {
     'DTSTART;TZID=Europe/Berlin:20260926T' + pad(h) + pad(m) + '00',
     'DTEND;TZID=Europe/Berlin:20260926T'   + pad(h+1) + pad(m) + '00',
     'SUMMARY:Forellenabholung \u2013 SFV Angelbachtal',
-    'DESCRIPTION:' + (b.anzahl||'') + ' Forellen \u2013 ' + ((parseInt(b.anzahl)||0)*5) + ' \u20ac \u2013 Bezahlung bei Abholung',
+    'DESCRIPTION:' + (b.anzahl||'') + ' Forellen \u2013 ' + (((parseInt(b.anzahl)||0)*8) + ' \u20ac \u2013 Bezahlung bei Abholung',
     'LOCATION:SFV-Stand\\, Sportplatzstra\u00dfe 11\\, 74918 Angelbachtal (Eichtersheim)',
     'BEGIN:VALARM',
     'TRIGGER:-PT60M',
