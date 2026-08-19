@@ -93,7 +93,7 @@
   <div class="info-box">
     <strong>⚠️ Hinweise zur Bestellung</strong>
     Bestellschluss: <strong>Dienstag, 22. September 2026</strong><br>
-    Bezahlung bei Abholung · 8 € pro Forelle · max. 10 Forellen pro Bestellung<br>
+    Bezahlung bei Abholung · 5 € pro Forelle · max. 10 Forellen pro Bestellung<br>
     Abholung: Sportplatzstraße 11, 74918 Angelbachtal (Eichtersheim)
   </div>
 
@@ -130,7 +130,7 @@
         <div class="row2">
           <div class="field">
             <label for="telefon">Telefon</label>
-            <input type="tel" id="telefon" required placeholder="0170 …">
+            <input type="text" id="telefon" inputmode="tel" required placeholder="0170 …">
           </div>
           <div class="field">
             <label for="email">E-Mail</label>
@@ -166,7 +166,7 @@
         </div>
 
         <div class="total-box">
-          <span class="total-label">Gesamtpreis (8 € / Forelle)</span>
+          <span class="total-label">Gesamtpreis (5 € / Forelle)</span>
           <span class="total-val" id="total">– €</span>
         </div>
 
@@ -246,7 +246,7 @@ function aktualisiereSlots(data) {
 
 function berechne() {
   var n = parseInt(document.getElementById('anzahl').value) || 0;
-  document.getElementById('total').textContent = n ? n * 8 + ' €' : '– €';
+  document.getElementById('total').textContent = n ? n * 5 + ' €' : '– €';
 }
 
 // Formular absenden
