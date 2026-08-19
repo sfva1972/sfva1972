@@ -219,8 +219,8 @@ document.getElementById('bestell-form').addEventListener('submit', async functio
     slot:     document.getElementById('slot').value
   };
 
-  if (!payload.anzahl || !payload.slot) {
-    errBox.textContent = 'Bitte Anzahl und Abholzeit wählen.';
+  if (!payload.vorname || !payload.nachname || !payload.telefon || !payload.email || !payload.anzahl || !payload.slot) {
+    errBox.textContent = 'Bitte alle Felder ausfüllen.';
     errBox.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Verbindlich bestellen →';
