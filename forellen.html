@@ -144,18 +144,20 @@
     </div>
 
     <div class="result ok" id="result-ok">
-      <div class="icon">🎣</div>
-      <h3>Bestellung eingegangen!</h3>
-      <p>Vielen Dank! Wir freuen uns auf euch am <strong>26. September 2026</strong>.<br><br>
-      📧 Eine Bestätigung mit allen Bestelldaten wurde an deine E-Mail-Adresse gesendet.<br>
-      <span style="font-size:12px;color:#94a3b8">Falls nichts angekommen ist, bitte im Spam-Ordner nachschauen.</span><br><br>
-      <em>Petri Heil – Euer SFV Angelbachtal</em></p>
-      <p style="margin-top:16px;font-size:13px;font-weight:600;color:var(--mid)">Termin speichern:</p>
-      <div class="cal-btns">
-        <button class="cal-btn" style="background:#4285f4" onclick="addToGoogle()">📅 Google Kalender</button>
-        <button class="cal-btn" style="background:#333" onclick="downloadICS()">🍎 Apple Kalender</button>
-        <button class="cal-btn" style="background:var(--blue)" onclick="downloadICS()">📥 Andere (.ics)</button>
+      <div style="font-size:40px;margin-bottom:14px">✅</div>
+      <h3 style="font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:800;color:#059669;margin-bottom:10px">Bestellung eingegangen!</h3>
+      <p style="font-size:14px;color:var(--mid);margin-bottom:6px">Vielen Dank! Wir freuen uns auf euch am <strong>26. September 2026</strong>.</p>
+      <p style="font-size:13px;color:var(--mid);margin-bottom:4px">📧 Eine Bestätigung wurde an deine E-Mail-Adresse gesendet.</p>
+      <p style="font-size:12px;color:#94a3b8;margin-bottom:24px">Falls nichts angekommen ist, bitte im Spam-Ordner nachschauen.</p>
+      <div style="border-top:1px solid var(--border);padding-top:20px">
+        <p style="font-size:13px;font-weight:600;color:var(--mid);margin-bottom:10px">Termin speichern:</p>
+        <div style="display:flex;flex-direction:column;gap:8px;max-width:260px;margin:0 auto">
+          <button onclick="addToGoogle()" style="padding:11px 16px;background:#4285f4;color:#fff;border:none;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">📅 Google Kalender</button>
+          <button onclick="downloadICS()" style="padding:11px 16px;background:#1c1c1e;color:#fff;border:none;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">🍎 Apple Kalender (.ics)</button>
+          <button onclick="downloadICS()" style="padding:11px 16px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">📥 Andere (.ics)</button>
+        </div>
       </div>
+      <p style="font-size:12px;color:#94a3b8;margin-top:20px;font-style:italic">Petri Heil – Euer SFV Angelbachtal</p>
     </div>
   </div>
 </main>
