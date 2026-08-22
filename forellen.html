@@ -167,6 +167,19 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpOhVJUPlNgihMJa6xFtf
 var verfuegbar = {};
 var letzteBestellung = {};
 
+// Bestellschluss: 22.09.2026 um 18:00 Uhr
+var BESTELLSCHLUSS = new Date('2026-09-22T18:00:00+02:00');
+
+if (new Date() > BESTELLSCHLUSS) {
+  document.getElementById('form-wrap').innerHTML =
+    '<div style="text-align:center;padding:32px 16px">'
+    + '<div style="font-size:36px;margin-bottom:16px">🔒</div>'
+    + '<h3 style="font-family:\'Outfit\',sans-serif;font-size:1.2rem;font-weight:800;color:var(--dark);margin-bottom:10px">Bestellschluss erreicht</h3>'
+    + '<p style="font-size:14px;color:var(--mid)">Leider können wir aktuell keine Bestellungen mehr annehmen.<br>'
+    + 'Bei Fragen: <a href="tel:01707617350" style="color:var(--blue)">0170 761 7350</a></p>'
+    + '</div>';
+}
+
 // Slots laden
 async function ladeSlots() {
   try {
