@@ -73,8 +73,8 @@
 <main>
   <div class="info-box">
     <strong>⚠️ Hinweise</strong>
-    Bestellschluss: <strong>Di. 22. September 2026</strong><br>
-    Bezahlung bei Abholung · 8 € pro Forelle · max. 10 Forellen pro Bestellung<br>
+    Bestellschluss: <strong>Sa. 26. September 2026, 18:00 Uhr</strong><br>
+    Bezahlung bei Abholung · 10 € pro Forelle · max. 10 Forellen pro Bestellung<br>
     Abholung: Sportplatzstraße 11, 74918 Angelbachtal (Eichtersheim)
   </div>
 
@@ -134,7 +134,7 @@
           </div>
         </div>
         <div class="total-box">
-          <span class="total-label">Gesamtpreis (8 € / Forelle)</span>
+          <span class="total-label">Gesamtpreis (10 € / Forelle)</span>
           <span class="total-val" id="total">– €</span>
         </div>
         <p class="hinweis">Mit dem Absenden bestätige ich, dass meine Bestellung verbindlich ist und ich den Betrag bei Abholung in bar bezahle.</p>
@@ -198,7 +198,7 @@ function aktualisiereSlots(data) {
 
 function berechne() {
   var n = parseInt(document.getElementById('anzahl').value) || 0;
-  document.getElementById('total').textContent = n ? (n * 8) + ' €' : '– €';
+  document.getElementById('total').textContent = n ? (n * 10) + ' €' : '– €';
 }
 
 // Formular absenden
@@ -210,16 +210,25 @@ document.getElementById('bestell-form').addEventListener('submit', async functio
   btn.disabled = true;
   btn.textContent = 'Wird gesendet…';
 
+  var telVal = document.getElementById('telefon').value.trim();
+  if (!telVal) {
+    errBox.textContent = 'Bitte Telefonnummer eingeben.';
+    errBox.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Verbindlich bestellen →';
+    return;
+  }
+
   var payload = {
     vorname:  document.getElementById('vorname').value.trim(),
     nachname: document.getElementById('nachname').value.trim(),
-    telefon:  document.getElementById('telefon').value.trim(),
+    telefon:  telVal,
     email:    document.getElementById('email').value.trim(),
     anzahl:   document.getElementById('anzahl').value,
     slot:     document.getElementById('slot').value
   };
 
-  if (!payload.vorname || !payload.nachname || !payload.telefon || !payload.email || !payload.anzahl || !payload.slot) {
+  if (!payload.vorname || !payload.nachname || !payload.email || !payload.anzahl || !payload.slot) {
     errBox.textContent = 'Bitte alle Felder ausfüllen.';
     errBox.style.display = 'block';
     btn.disabled = false;
@@ -260,7 +269,7 @@ function addToGoogle() {
   var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
     + '&text=' + encodeURIComponent('Forellenabholung – SFV Angelbachtal')
     + '&dates=20260926T' + pad(h) + pad(m) + '00/20260926T' + pad(h+1) + pad(m) + '00'
-    + '&details=' + encodeURIComponent(anzahl + ' Forellen – ' + (anzahl*8) + ' € – Bezahlung bei Abholung')
+    + '&details=' + encodeURIComponent(anzahl + ' Forellen – ' + (anzahl*10) + ' € – Bezahlung bei Abholung')
     + '&location=' + encodeURIComponent('SFV-Stand, Sportplatzstraße 11, 74918 Angelbachtal')
     + '&ctz=Europe/Berlin';
   window.open(url, '_blank');
@@ -280,7 +289,7 @@ function downloadICS() {
     'DTSTART;TZID=Europe/Berlin:20260926T' + pad(h) + pad(m) + '00',
     'DTEND;TZID=Europe/Berlin:20260926T' + pad(h+1) + pad(m) + '00',
     'SUMMARY:Forellenabholung \u2013 SFV Angelbachtal',
-    'DESCRIPTION:' + anzahl + ' Forellen \u2013 ' + (anzahl*8) + ' \u20ac \u2013 Bezahlung bei Abholung',
+    'DESCRIPTION:' + anzahl + ' Forellen \u2013 ' + (anzahl*10) + ' \u20ac \u2013 Bezahlung bei Abholung',
     'LOCATION:SFV-Stand\\, Sportplatzstra\u00dfe 11\\, 74918 Angelbachtal',
     'BEGIN:VALARM','TRIGGER:-PT60M','ACTION:DISPLAY',
     'DESCRIPTION:Erinnerung: Forellenabholung in 1 Stunde!',
