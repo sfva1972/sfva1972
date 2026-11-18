@@ -452,6 +452,25 @@
     if (jetzt < von || jetzt > bis) banner.style.display = 'none';
   })();
 </script>
+  
+  <!-- GEWINNSPIEL BANNER -->
+<a href="gewinnspiel.html" id="gws-banner" style="display:block;text-decoration:none;margin-top:64px">
+  <div style="background:#fff5f5;border-bottom:2px solid #c0392b;padding:14px 32px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;text-align:center">
+    <span style="font-size:20px">🎄</span>
+    <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;color:#8b0000">Weihnachtsmarkt-Gewinnspiel</span>
+    <span style="font-size:13px;color:#334155">Jetzt mitmachen &amp; Fischbrötchen-Gutschein gewinnen!</span>
+    <span style="background:#c0392b;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px">20.–25. November →</span>
+  </div>
+</a>
+<script>
+  (function(){
+    var b=document.getElementById('gws-banner');
+    var now=new Date();
+    var von=new Date('2026-11-20T00:00:00+01:00');
+    var bis=new Date('2026-11-25T23:59:59+01:00');
+    if(now<von||now>bis) b.style.display='none';
+  })();
+</script>
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <header class="hero" role="banner">
   <div class="hero-bg" aria-hidden="true"></div>
