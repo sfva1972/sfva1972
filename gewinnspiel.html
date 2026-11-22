@@ -199,8 +199,8 @@
   <div id="state-wrong">
     <div class="state-icon">🤔</div>
     <p class="state-h" style="color:var(--dark)">Leider falsch!</p>
-    <p class="state-p">Die Antwort war leider nicht korrekt. Schau nochmal auf unsere Social-Media-Seite oder beim nächsten Vereinstreffen nach!</p>
-    <div class="wrong-badge">💡 Tipp: Halte Ausschau nach unserem Facebook-Post zum Pflanztag</div>
+    <p class="state-p">Die Antwort war leider nicht korrekt. Schau nochmal in unsere <a href="index.html#news" style="color:var(--blue);font-weight:600">Vereins-News (KW46)</a> – dort findest du den Hinweis!</p>
+    <div class="wrong-badge">💡 Tipp: Schau in die News auf unserer Vereinsseite</div>
     <br>
     <button class="btn-retry" onclick="resetForm()">↩ Nochmal versuchen</button>
   </div>
@@ -219,10 +219,10 @@
   </div>
 </main>
 
-<div id="ver-badge">v 2026-11-18</div>
+<div id="ver-badge">v 2026-11-22</div>
 
 <script>
-  // ── Script URL – nach Deploy hier eintragen ──────────────────
+  // ── Script URL ───────────────────────────────────────────────
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzEoqVy3uet2qjCCm_uLTL3Ieetk4vp7MqZnylYUAVRbw7f_Oe6_20ZyaFDteTzjrQW/exec';
 
   // ── Zeitfenster ──────────────────────────────────────────────
@@ -280,7 +280,7 @@
     });
   });
 
-  // ── Formular absenden ────────────────────────────────────────
+  // ── Formular absenden (GET – kein CORS-Preflight) ────────────
   document.getElementById('gws-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -294,39 +294,38 @@
     btn.disabled    = true;
     btn.textContent = 'Wird gesendet…';
 
-    var payload = {
-      vorname:  document.getElementById('gws-vorname').value.trim(),
-      nachname: document.getElementById('gws-nachname').value.trim(),
-      email:    document.getElementById('gws-email').value.trim(),
-      antwort:  antwort
-    };
+    var vorname  = document.getElementById('gws-vorname').value.trim();
+    var nachname = document.getElementById('gws-nachname').value.trim();
+    var email    = document.getElementById('gws-email').value.trim();
 
-    fetch(SCRIPT_URL, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload)
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data.ok) {
-        show('success');
-      } else if (data.reason === 'falsch') {
-        show('wrong');
-      } else {
+    var getUrl = SCRIPT_URL
+      + '?vorname='  + encodeURIComponent(vorname)
+      + '&nachname=' + encodeURIComponent(nachname)
+      + '&email='    + encodeURIComponent(email)
+      + '&antwort='  + encodeURIComponent(antwort);
+
+    fetch(getUrl)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          show('success');
+        } else if (data.reason === 'falsch') {
+          show('wrong');
+        } else {
+          btn.disabled    = false;
+          btn.textContent = '🎁 Jetzt teilnehmen';
+          var err = document.getElementById('form-error');
+          err.textContent = '❌ Fehler beim Senden. Bitte erneut versuchen.';
+          err.style.display = 'block';
+        }
+      })
+      .catch(function() {
         btn.disabled    = false;
         btn.textContent = '🎁 Jetzt teilnehmen';
         var err = document.getElementById('form-error');
-        err.textContent = '❌ Fehler beim Senden. Bitte erneut versuchen.';
+        err.textContent = '❌ Verbindungsfehler. Bitte erneut versuchen.';
         err.style.display = 'block';
-      }
-    })
-    .catch(function() {
-      btn.disabled    = false;
-      btn.textContent = '🎁 Jetzt teilnehmen';
-      var err = document.getElementById('form-error');
-      err.textContent = '❌ Verbindungsfehler. Bitte erneut versuchen.';
-      err.style.display = 'block';
-    });
+      });
   });
 
   // ── Nochmal versuchen (bei falscher Antwort) ─────────────────
